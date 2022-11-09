@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    internal class Welcome
+    static class Welcome
     {
+        internal static void PrintWelcome()
+        {
+            Console.WriteLine("Welcome to NCO Bank");
+        }
     }
 }
