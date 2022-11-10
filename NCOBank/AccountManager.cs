@@ -26,10 +26,10 @@ namespace NCOBank
                 switch (selection)
                 {
                     case "1":
-                        CreateAccount.Run();
+                        BankMenu.BankAccounts();
                         break;
                     case "2":
-                        DisplayAccounts.Run();
+                        BankMenu.CheckBalance();
                         break;
                     case "3":
                         Transfer.Run();
