@@ -36,7 +36,6 @@ namespace NCOBank
         internal void loggin()
         {
             bool b = true;
-            bool role;
             string done = null;
             int attempts = 0;
             int amount = 3;

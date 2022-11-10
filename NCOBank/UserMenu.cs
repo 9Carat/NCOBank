@@ -16,7 +16,7 @@ namespace NCOBank
 
             switch (choice)
             {
-                case 1:
+                case 1: 
                     Console.WriteLine("temp");
                     break;
                 case 2:
