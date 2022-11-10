@@ -10,6 +10,7 @@ namespace NCOBank
     {
         public static void AdminMenus()
         {
+            List<user> userList = new List<user>();
             UserMenu us1 = new UserMenu();
             Console.WriteLine("Välkommen till ditt AdminKonto!\n1:Ändra ValutaKurs \n2:Lägg till användare \n3:\"Lås upp användare \n4: Gå till användarMeny\n5: Logga ut");
             int choice;
@@ -21,7 +22,7 @@ namespace NCOBank
                     Console.WriteLine("Ändra ValutaKurs");
                     break;
                 case 2:
-                    Console.WriteLine("Lägg till användare");
+                    Console.WriteLine("Temp");
                     break;
                 case 3:
                     Console.WriteLine("Lås upp användare");
@@ -37,6 +38,7 @@ namespace NCOBank
             }
 
         }
+    
     }
 
 }  

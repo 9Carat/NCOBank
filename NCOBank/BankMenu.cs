@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    class BankMenu
+    internal class BankMenu
     {
         //List<Admin> adminList = new List<Admin>();
-        List<user> userList = new List<user>();
-        UserMenu baseMenu = new UserMenu();
-        AdminMenu adminMenu = new AdminMenu();
+         List<user> userList = new List<user>();
+         UserMenu baseMenu = new UserMenu();
+         AdminMenu adminMenu = new AdminMenu();
 
         user user1 = new user("Oskar", "inlogg", true, 50000);
 
@@ -50,7 +50,7 @@ namespace NCOBank
 
                 user existingUser = userList.Find(u => u.Username.Contains(enteredUser));
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < i; j++)
                     {
@@ -132,6 +132,7 @@ namespace NCOBank
             Console.Clear();
             chooseOption();
         }
+
 
     }
 }

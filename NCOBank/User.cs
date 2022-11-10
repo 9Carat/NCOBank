@@ -9,6 +9,7 @@ namespace NCOBank
 {
     class user
     {
+        
         public double money { get; set; }
         public string Username { get; set; }
         public bool Adminrole;
