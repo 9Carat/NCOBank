@@ -44,7 +44,7 @@ namespace NCOBank
         }
         public static void AdminLogin()
         {
-            CreateAdmin.NewAdmin();
+            CreateUser.NewAdmin();
         }
         public static void CreateAccount()
         {

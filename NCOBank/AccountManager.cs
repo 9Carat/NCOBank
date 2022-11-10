@@ -8,8 +8,6 @@ namespace NCOBank
 {
     internal class AccountManager
     {
-        public Dictionary<string, int> accountList = new Dictionary<string, int>();
-
         public static void Run()
         {
             string selection;
