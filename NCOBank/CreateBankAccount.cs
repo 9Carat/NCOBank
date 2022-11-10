@@ -8,11 +8,11 @@ namespace NCOBank
 {
     internal class CreateBankAccount
     {
+       
         public static void Run()
         {
-            Console.WriteLine("Enter account number: ");
-            int newAcc;
-            int.TryParse(Console.ReadLine(), out newAcc);
+            int newAcc = RanNum();
+            Console.WriteLine($"Your account number is: {newAcc} ");
             Console.WriteLine("Enter deposit: ");
             int newDeposit;
             int.TryParse(Console.ReadLine(), out newDeposit);
@@ -22,6 +22,17 @@ namespace NCOBank
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();
+        }
+        public static int RanNum()
+        {
+            Random rnd = new Random();
+            HashSet<int> accNum = new HashSet<int>();
+            while (accNum.Count < 5)
+            {
+                accNum.Add(rnd.Next(1, 100));
+            }
+            int randomNumber = accNum.First();
+            return randomNumber;
         }
     }
 }
