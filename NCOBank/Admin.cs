@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    internal class Admin
+    public class Admin
     {
         private string _username;
         private string _password;

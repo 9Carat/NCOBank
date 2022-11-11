@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    internal class BankMenu
+    public class BankMenu
     {
         public static List<Admin> adminList = new List<Admin>();
         public static List<User> userList = new List<User>();
@@ -24,9 +24,11 @@ namespace NCOBank
             switch (selection)
             {
                 case "1":
+                    Console.Clear();
                     Login();
                     break;
                 case "2":
+                    Console.Clear();
                     CreateAccount();
                     break;
                 case "3":
@@ -42,6 +44,8 @@ namespace NCOBank
         {
             int attempts = 0;
             bool verifiedUser = false;
+            User existingUser = null;
+            User existingPassword = null;
 
             if (lockedOut == false)
             {
@@ -53,8 +57,8 @@ namespace NCOBank
                     Console.WriteLine("Please enter your password");
                     string enteredPassword = Console.ReadLine();
 
-                    User existingUser = userList.Find(u => u.Username.Contains(enteredUser));
-                    User existingPassword = userList.Find(u => u.Password.Contains(enteredPassword));
+                    existingUser = userList.Find(u => u.Username.Contains(enteredUser));
+                    existingPassword = userList.Find(u => u.Password.Contains(enteredPassword));
 
                     if (existingUser == null || existingPassword == null || existingUser != existingPassword)
                     {
@@ -79,10 +83,10 @@ namespace NCOBank
                 Console.Clear();
                 Run();
             }
-            else
+            else if (verifiedUser == true)
             {
                 Console.Clear();
-                AccountManager.Run();
+                AccountManager.Run(existingUser); //Opens the account manager along with user account to keep track of changes
             }
         }
         public static void AdminLogin()
@@ -123,7 +127,8 @@ namespace NCOBank
             Console.WriteLine("Please enter your new password");
             string newPassword = Console.ReadLine();
 
-            userList.Add(new User(newUsername,newPassword));
+            User user = new User(newUsername, newPassword);
+            userList.Add(new User(newUsername, newPassword));
 
             Console.WriteLine("User successfully created!");
             Console.WriteLine("Press enter to continue");

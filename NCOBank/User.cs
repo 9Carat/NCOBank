@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    internal class User
+    public class User
     {
         private string _username;
         private string _password;
         private string _userRole;
+        public Dictionary<string, int> accountList;
         public string Username
         {
             get

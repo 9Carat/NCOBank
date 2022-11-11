@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    internal class AccountManager
+    public class AccountManager
     {
-        public Dictionary<string, int> accountList = new Dictionary<string, int>();
+        public static Dictionary<PersonalAccount, User> personalAccList = new Dictionary<PersonalAccount, User>();
+        //public static Dictionary<SavingsAccount, User> savingsAccList = new Dictionary<SavingsAccount, User>();
+        //public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
+        
 
-        public static void Run()
+        public static void Run(User user)
         {
             string selection;
             do
@@ -26,10 +29,12 @@ namespace NCOBank
                 switch (selection)
                 {
                     case "1":
-                        CreateAccount.Run();
+                        Console.Clear();
+                        CreateAccount.Run(user);
                         break;
                     case "2":
-                        DisplayAccounts.Run();
+                        Console.Clear();
+                        DisplayAccounts.Run(user);
                         break;
                     case "3":
                         Transfer.Run();
