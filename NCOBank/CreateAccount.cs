@@ -30,9 +30,11 @@ namespace NCOBank
         public static void CreatePersonalAcc(User user)
         {
             Console.WriteLine("Choose an account number (10 digits)");
-            string account = Console.ReadLine();
+            string accNum = Console.ReadLine();
+            Console.WriteLine("Choose your balance");
+            float balance = float.Parse(Console.ReadLine());
 
-            AccountManager.accountList.Add(account, user);
+            AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user);
 
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();

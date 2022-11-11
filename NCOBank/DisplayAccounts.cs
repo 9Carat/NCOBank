@@ -31,11 +31,12 @@ namespace NCOBank
         {
             Console.WriteLine("You currently have the following accounts:");
             
-            foreach(var item in AccountManager.accountList)
+            foreach(var item in AccountManager.personalAccList)
             {
                 if (item.Value.Equals(user))
                 {
-                    Console.WriteLine(item.Key);
+                    Console.WriteLine(item.Key.accountNum);
+                    Console.WriteLine(item.Key.balance);
                 }
             }
             Console.WriteLine("Press enter to continue");
