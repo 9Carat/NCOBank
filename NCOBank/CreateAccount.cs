@@ -12,7 +12,8 @@ namespace NCOBank
         {
             Console.WriteLine("Please select one of the following options:");
             Console.WriteLine("1. Create a personal account");
-            Console.WriteLine("2. Previous menu");
+            Console.WriteLine("2. Create a savings account");
+            Console.WriteLine("3. Previous menu");
             string selection = Console.ReadLine();
 
             switch (selection)
@@ -22,6 +23,10 @@ namespace NCOBank
                     CreatePersonalAcc(user);
                     break;
                 case "2":
+                    Console.Clear();
+                    CreateSavingsAcc(user);
+                    break;
+                case "3":
                     Console.Clear();
                     AccountManager.Run(user);
                     break;
@@ -36,6 +41,22 @@ namespace NCOBank
 
             AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user);
 
+            Console.WriteLine("Personal account successfully created. Press enter to continue.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        public static void CreateSavingsAcc(User user)
+        {
+            SavingsAccount x = new SavingsAccount(" ", 100);
+            Console.WriteLine(x.DisplayInterest());
+            Console.WriteLine("\nPress enter to continue.");
+            Console.ReadLine();
+            Console.WriteLine("Choose an account number (10 digits)");
+            string accNum = Console.ReadLine();
+            Console.WriteLine("Choose your balance");
+            float balance = float.Parse(Console.ReadLine());
+            AccountManager.savingsAccList.Add(new SavingsAccount(accNum, balance), user);
+            Console.WriteLine(x.CheckInterest(balance) + "kr");
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();

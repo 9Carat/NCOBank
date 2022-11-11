@@ -18,8 +18,8 @@ namespace NCOBank
             switch (selection)
             {
                 case "1":
-                    Console.Clear();
-                    Display(user);
+                    Console.Clear();  
+                    Display(user);                   
                     break;
                 case "2":
                     Console.Clear();
@@ -35,8 +35,16 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user))
                 {
-                    Console.WriteLine(item.Key.accountNum);
-                    Console.WriteLine(item.Key.balance);
+                    Console.WriteLine($"*** {item.Key.accountNum} *** \nBalance: {item.Key.balance}");
+                    Console.WriteLine("");
+                }
+            }
+            foreach (var item in AccountManager.savingsAccList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    Console.WriteLine($"*** {item.Key.accountNum} *** \nBalance: {item.Key.balance}");
+                    Console.WriteLine("");
                 }
             }
             Console.WriteLine("Press enter to continue");
