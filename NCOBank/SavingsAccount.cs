@@ -18,7 +18,7 @@ namespace NCOBank
         public float CheckInterest(float balance)
         {
             float interest = balance * 12 * SavingsInterest;
-            Console.Write($"Current yearly interest based on your monthly savings: ");
+            Console.Write("Current yearly interest based on your monthly savings: ");
             return interest;
         }
         public string DisplayInterest()

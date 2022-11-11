@@ -40,7 +40,7 @@ namespace NCOBank
                         Transfer.Run();
                         break;
                     case "4":
-                        Loan.Run();
+                        Loan.Run(user);
                         break;
                     case "0":
                         Console.Clear();
