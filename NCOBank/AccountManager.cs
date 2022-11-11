@@ -37,7 +37,8 @@ namespace NCOBank
                         DisplayAccounts.Run(user);
                         break;
                     case "3":
-                        Transfer.Run();
+                        Console.Clear();
+                        Transfer.Run(user);
                         break;
                     case "4":
                         Loan.Run();

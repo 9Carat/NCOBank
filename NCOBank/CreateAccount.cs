@@ -34,7 +34,10 @@ namespace NCOBank
             Console.WriteLine("Choose your balance");
             float balance = float.Parse(Console.ReadLine());
 
-            AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user);
+            PersonalAccount account = new PersonalAccount(accNum, balance);
+            AccountManager.personalAccList.Add(account, user);
+
+            //AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user);
 
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
