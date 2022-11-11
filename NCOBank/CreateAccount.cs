@@ -47,7 +47,7 @@ namespace NCOBank
         }
         public static void CreateSavingsAcc(User user)
         {
-            SavingsAccount x = new SavingsAccount(" ", 100);
+            SavingsAccount x = new SavingsAccount(" ", 100); //stökig, kolla på fixa sen
             Console.WriteLine(x.DisplayInterest());
             Console.WriteLine("\nPress enter to continue.");
             Console.ReadLine();
