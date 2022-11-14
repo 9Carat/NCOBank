@@ -25,6 +25,7 @@ namespace NCOBank
                     Console.Clear();
                     AccountManager.Run(user);
                     break;
+                    //valuta konto
             }
         }
         public static void CreatePersonalAcc(User user)
