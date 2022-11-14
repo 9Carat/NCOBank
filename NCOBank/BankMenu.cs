@@ -29,8 +29,8 @@ namespace NCOBank
                     break;
                 case "2":
                     Console.Clear();
-                    userList.Add(new User("apelsin", "mango")); // Creates temp accounts
-                    userList.Add(new User("elefant", "marsvin"));
+                    userList.Add(new User("a", "1")); // Creates temp accounts
+                    userList.Add(new User("b", "2"));
                     Console.WriteLine("Accounts created! (line 32)");
                     Run();
                     //CreateAccount();

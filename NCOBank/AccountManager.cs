@@ -11,7 +11,9 @@ namespace NCOBank
         public static Dictionary<PersonalAccount, User> personalAccList = new Dictionary<PersonalAccount, User>();
         //public static Dictionary<SavingsAccount, User> savingsAccList = new Dictionary<SavingsAccount, User>();
         //public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
-        
+        //public static Dictionary<string, string> accountHistory = new Dictionary<string, string>();
+        public static List<KeyValuePair<string, string>> accountHistory = new List<KeyValuePair<string, string>>();
+
 
         public static void Run(User user)
         {
@@ -19,7 +21,7 @@ namespace NCOBank
             do
             {
                 Console.WriteLine("Welcome \"user\". Please select an option to continue");
-                Console.WriteLine("1. Create a personal or savings account");
+                Console.WriteLine("1. Create a personal, savings or currency account");
                 Console.WriteLine("2. View your current accounts and their balances");
                 Console.WriteLine("3. Transfer amount to other accounts");
                 Console.WriteLine("4. Apply for loan");
