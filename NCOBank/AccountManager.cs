@@ -23,6 +23,7 @@ namespace NCOBank
                 Console.WriteLine("2. View your current accounts and their balances");
                 Console.WriteLine("3. Transfer amount to other accounts");
                 Console.WriteLine("4. Apply for loan");
+                Console.WriteLine("5. Change currency");
                 Console.WriteLine("0. Log out");
                 selection = Console.ReadLine();
 
@@ -41,6 +42,9 @@ namespace NCOBank
                         break;
                     case "4":
                         Loan.Run();
+                        break;
+                    case "5":
+                        CurrencyExchange.Run(user);
                         break;
                     case "0":
                         Console.Clear();

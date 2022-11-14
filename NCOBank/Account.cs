@@ -9,7 +9,7 @@ namespace NCOBank
     public abstract class Account
     {
         public string accountNum;
-        public float balance;
+        public double balance;
 
         public Account(string accNum, float balance)
         {
