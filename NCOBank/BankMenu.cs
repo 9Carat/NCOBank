@@ -29,7 +29,11 @@ namespace NCOBank
                     break;
                 case "2":
                     Console.Clear();
-                    CreateAccount();
+                    userList.Add(new User("a", "1")); // Creates temp accounts
+                    userList.Add(new User("b", "2"));
+                    Console.WriteLine("Accounts created! (line 32)");
+                    Run();
+                    //CreateAccount();
                     break;
                 case "3":
                     Console.Clear();
@@ -127,7 +131,6 @@ namespace NCOBank
             Console.WriteLine("Please enter your new password");
             string newPassword = Console.ReadLine();
 
-            User user = new User(newUsername, newPassword);
             userList.Add(new User(newUsername, newPassword));
 
             Console.WriteLine("User successfully created!");

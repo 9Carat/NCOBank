@@ -29,12 +29,13 @@ namespace NCOBank
         }
         public static void CreatePersonalAcc(User user)
         {
-            Console.WriteLine("Choose an account number (10 digits)");
+            Console.WriteLine("Choose an account number (xxx xxx xxx-x)");
             string accNum = Console.ReadLine();
             Console.WriteLine("Choose your balance");
             float balance = float.Parse(Console.ReadLine());
 
-            AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user);
+            AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user); // stores the account in the dictionary
+            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
 
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
