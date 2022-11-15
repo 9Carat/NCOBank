@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    internal class Loan
+    public class Loan
     {
         private float totalPersonal;
         private float totalSaving;
@@ -34,6 +34,11 @@ namespace NCOBank
             this.TotalSaving = totalSaving;
             this.TotalLoan = totalLoan;
         }
+        public Loan(float newLoan, float answer)
+        {
+
+        }
+
 
         public static void Run(User user)
         {
@@ -44,8 +49,6 @@ namespace NCOBank
         public void MaxLoan(User user)
         {
             // lägga till ränta på lån + press enter
-
-
 
             foreach (var item in AccountManager.personalAccList)
             {
@@ -61,14 +64,33 @@ namespace NCOBank
                     totalSaving = item.Key.balance;
                 }
             }
-
-            float maxLoan = (totalPersonal + totalSaving) * totalLoan;
-            Console.WriteLine($"The max loan is {maxLoan}");
+            foreach (var item in AccountManager.loanList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    newLoan = item.Value.NumLoans;
+                }
+            }
+            float maxLoan = (totalPersonal + totalSaving) * totalLoan - newLoan;
+            if (maxLoan > 0)
+            {
+                Console.WriteLine($"The max loan is {maxLoan}");
+            }
+            else
+            {
+                Console.WriteLine("You have reached the max amount on your loans. \nPlease contact the bank if you want to apply for a new one");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+                Console.Clear();
+                AccountManager.Run(user);
+            } 
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.WriteLine("Apply the amount you want to loan: ");
             float answer;
             float.TryParse(Console.ReadLine(), out answer);
+            user.NumLoans += answer;
+            
             if (answer > maxLoan)
             {
                 Console.WriteLine("The amount you are asking for is too high");
@@ -76,11 +98,13 @@ namespace NCOBank
             else
             {
                 Console.WriteLine($"Your loan for {answer} has been approved");
-                answer = newLoan; //använda för att kolla fler lån?
+                AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
             }
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();
+
+
         }
     }
 }
