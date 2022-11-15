@@ -8,10 +8,12 @@ namespace NCOBank
 {
     public class User
     {
+        private float _numLoans;
         private string _username;
         private string _password;
         private string _userRole;
         public Dictionary<string, int> accountList;
+        public float NumLoans { get; set; }
         public string Username
         {
             get
@@ -48,6 +50,7 @@ namespace NCOBank
 
         public User(string username, string password)
         {
+            this.NumLoans = _numLoans;
             _username = username;
             _password = password;
             _userRole = "user";

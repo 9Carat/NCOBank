@@ -19,8 +19,8 @@ namespace NCOBank
             switch (selection)
             {
                 case "1":
-                    Console.Clear();
-                    Display(user);
+                    Console.Clear();  
+                    Display(user);                   
                     break;
                 case "2":
                     Console.Clear();
@@ -43,6 +43,8 @@ namespace NCOBank
                     Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                 }
             }
+
+
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();
@@ -69,6 +71,7 @@ namespace NCOBank
                 {
                     if (acc.Key == account)
                         Console.WriteLine($"Account: {acc.Key} - {acc.Value}");
+
                 }
             }
             else
