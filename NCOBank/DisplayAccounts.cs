@@ -29,7 +29,7 @@ namespace NCOBank
         }
         public static void Display(User user)
         {
-            Console.WriteLine("You currently have the following accounts:");
+            Console.WriteLine("You currently have the following Personal accounts:");
             
             foreach(var item in AccountManager.personalAccList)
             {
@@ -37,6 +37,17 @@ namespace NCOBank
                 {
                     Console.WriteLine(item.Key.accountNum);
                     Console.WriteLine(item.Key.balance);
+                }
+            }
+
+            Console.WriteLine("You currently have the following Currency accnounts: ");
+
+            foreach (var item in AccountManager.currencyAccList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    Console.WriteLine(item.Key.AccountName);
+                    Console.WriteLine(item.Key.NewCurrency);
                 }
             }
             Console.WriteLine("Press enter to continue");

@@ -14,14 +14,14 @@ namespace NCOBank
     {
         public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
         public static Dictionary<PersonalAccount, User> personalAccList = new Dictionary<PersonalAccount, User>();
-        double usd = 0.096;
-        double eur = 0.093;
-        double dkk = 0.069;
-        private double oldCurrency;
-        private double newCurrency;
+        float usd = 0.096f;
+        float eur = 0.093f;
+        float dkk = 0.069f;
+        private float oldCurrency;
+        private float newCurrency;
         private string accountName;
-        public double OldCurrency { get; set; }
-        public double NewCurrency { get; set; }
+        public float OldCurrency { get; set; }
+        public float NewCurrency { get; set; }
         public string AccountName { get; set; }
         public CurrencyExchange()
         {
@@ -85,7 +85,6 @@ namespace NCOBank
                 
             }
             
-    
             Console.WriteLine("Which currency would u like to change to?");
             Console.WriteLine("1: Sek to USD");
             Console.WriteLine("2: Sek to Eur");
