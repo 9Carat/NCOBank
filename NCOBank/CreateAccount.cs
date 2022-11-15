@@ -63,40 +63,41 @@ namespace NCOBank
             float.TryParse(Console.ReadLine(), out oldCurrency);
 
             Console.WriteLine("in which currency would you like to create your bank account in?");
-            string[] CurrencyArray = { "USD", "EUR", "DKK" };
-            
-            
-            int choice;
-            int.TryParse(Console.ReadLine(), out choice);
-            switch (choice)
+            string[] CurrencyArray = { "USD ", "EUR ", "DKK " };
+            foreach (var item in CurrencyArray)
             {
-                case 1:
-                    SekToUSD(user);
-                    break;
-                case 2:
-                    SekToEur(user);
-                    break;
-                case 3:
-                    SekToDKK(user);
-                    break;
+                Console.WriteLine(item.ToString());
             }
+            bool b;
+            do
+            {
+                Currency = Console.ReadLine();
+                if (Currency.Equals("USD"))
+                {
+                    newCurrency = oldCurrency * usd;
+                    b = true;
+                }
+                else if (Currency.Equals("EUR"))
+                {
+                    newCurrency = oldCurrency * eur;
+                    b = true;
+                }
+                else if (Currency.Equals("DKK"))
+                {
+                    newCurrency = oldCurrency * dkk;
+                    b = true;
+                }
+                else if (Currency != "USD" || Currency != "EUR" || Currency != "DKK")
+                {
+                    Console.WriteLine("You need to write in correct currency");
+                }
 
-            void SekToUSD(User user)
-            {
-                newCurrency = oldCurrency * usd;
-                accountName = accountName + " USD";
-            }
-            void SekToEur(User user)
-            {
-                newCurrency = oldCurrency * eur;
-                accountName = accountName + " EUR";
-            }
-            void SekToDKK(User user)
-            {
-                newCurrency = oldCurrency * dkk;
-                accountName = accountName + " DKK"; 
-            }
-            
+            } while (b = false);
+ 
+           
+
+            accountName = accountName +" " + Currency;
+
             AccountManager.currencyAccList.Add(new CurrencyAccount(accountName, newCurrency), user);
 
             Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");

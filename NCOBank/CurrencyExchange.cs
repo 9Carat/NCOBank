@@ -12,14 +12,14 @@ namespace NCOBank
 
     class CurrencyExchange
     {
-        public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
-        public static Dictionary<PersonalAccount, User> personalAccList = new Dictionary<PersonalAccount, User>();
+        string Currency;
         float usd = 0.096f;
         float eur = 0.093f;
         float dkk = 0.069f;
         private float oldCurrency;
         private float newCurrency;
         private string accountName;
+        
         public float OldCurrency { get; set; }
         public float NewCurrency { get; set; }
         public string AccountName { get; set; }
@@ -39,6 +39,7 @@ namespace NCOBank
 
         public void CurrencySaver(User user)
         {
+            string accountNumCur = "placeholder";
             foreach (var item in AccountManager.personalAccList)
             {
                 if (item.Value.Equals(user))
@@ -58,6 +59,7 @@ namespace NCOBank
                 if (item.Value.Equals(user))
                 {
                     Console.WriteLine(item.Key.accountNum);
+                    accountNumCur = item.Key.accountNum;
                     
                 }
             }
@@ -86,59 +88,44 @@ namespace NCOBank
             }
             
             Console.WriteLine("Which currency would u like to change to?");
-            Console.WriteLine("1: Sek to USD");
-            Console.WriteLine("2: Sek to Eur");
-            Console.WriteLine("3: Sek to DKK");
-            int choice;
-            int.TryParse(Console.ReadLine(), out choice);
-            switch (choice)
+            Console.WriteLine("in which currency would you like to create your bank account in?");
+            string[] CurrencyArray = { "USD ", "EUR ", "DKK " };
+            foreach (var item in CurrencyArray)
             {
-                case 1:
-                    SekToUSD(user);
-                    Console.Clear();
-                    break;
-                case 2:
-                    SekToEur(user);
-                    Console.Clear();
-                    break;
-                case 3:
-                    SekToDKK(user);
-                    Console.Clear();
-                    break;
-                    
+                Console.WriteLine(item.ToString());
             }
-            void SekToUSD(User user)
+
+
+            bool b;
+            do
             {
-                newCurrency = oldCurrency * usd;
-            }
-            void SekToEur(User user)
-            {
-                newCurrency = oldCurrency * eur;
-            }
-            void SekToDKK(User user)
-            {
-                newCurrency = oldCurrency * dkk;
-            }
-            foreach (var item in AccountManager.personalAccList)
-            {
-                if (choice == 1)
+                Currency = Console.ReadLine();
+                if (Currency.Equals("USD"))
                 {
-                  accountName = item.Key.accountNum + "USD";
+                    newCurrency = oldCurrency * usd;
+                    b = true;
                 }
-                else if (choice == 2)
+                else if (Currency.Equals("EUR"))
                 {
-                    accountName = item.Key.accountNum + "Eur";
+                    newCurrency = oldCurrency * eur;
+                    b = true;
                 }
-                else if (choice == 3)
+                else if (Currency.Equals("DKK"))
                 {
-                    accountName = item.Key.accountNum + "DKK";
+                    newCurrency = oldCurrency * dkk;
+                    b = true;
                 }
-            }
-            foreach (var item in AccountManager.currencyAccList)
-            {
-                item.Key.Balance = newCurrency;
-                item.Key.AccountName = accountName;
-            }
+                else if (Currency != "USD" || Currency != "EUR" || Currency != "DKK")
+                {
+                    Console.WriteLine("You need to write in correct currency");
+                }
+
+            } while (b = false);
+
+            //AccountManager.personalAccList.Keys.
+            accountName = accountNumCur + " " + Currency;
+
+
             //Implementera en minus funktion på personalAcclist
             AccountManager.currencyAccList.Add(new CurrencyAccount(accountName, newCurrency), user);
             Console.WriteLine("===========================================");
