@@ -35,8 +35,7 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user))
                 {
-                    Console.WriteLine($"*** {item.Key.accountNum} *** \nBalance: {item.Key.balance}");
-                    Console.WriteLine("");
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                 }
             }
             foreach (var item in AccountManager.savingsAccList)
