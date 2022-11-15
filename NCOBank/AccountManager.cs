@@ -11,7 +11,6 @@ namespace NCOBank
         public static Dictionary<PersonalAccount, User> personalAccList = new Dictionary<PersonalAccount, User>();
         //public static Dictionary<SavingsAccount, User> savingsAccList = new Dictionary<SavingsAccount, User>();
         //public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
-        //public static Dictionary<string, string> accountHistory = new Dictionary<string, string>();
         public static List<KeyValuePair<string, string>> accountHistory = new List<KeyValuePair<string, string>>();
 
 

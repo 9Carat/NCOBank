@@ -52,11 +52,27 @@ namespace NCOBank
             Console.WriteLine("Which account do you want show the history for?");
             string account = Console.ReadLine();
 
-            foreach (KeyValuePair<string, string> acc in AccountManager.accountHistory) // Can display any acc in the bank(fix)
+            bool isUserAccount = false;
+            foreach (var item in AccountManager.personalAccList) // Checks if account belongs to user
             {
-                if(acc.Key == account)
-                Console.WriteLine( $"Account: {acc.Key} - {acc.Value}");
+                if (item.Key.accountNum == account && item.Value.Equals(user))
+                {
+                    isUserAccount = true;
+                    break;
+                }
             }
+
+            if (isUserAccount)
+            {
+                foreach (KeyValuePair<string, string> acc in AccountManager.accountHistory)
+                {
+                    if (acc.Key == account)
+                        Console.WriteLine($"Account: {acc.Key} - {acc.Value}");
+                }
+            }
+            else
+                Console.WriteLine("Account not found. Please try again");
+            
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();

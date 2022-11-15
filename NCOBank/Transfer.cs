@@ -57,8 +57,8 @@ namespace NCOBank
             {
                 account1.balance -= amount;
                 account2.balance += amount;
-                AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account1.accountNum, $"Transfered amount: {amount} - {DateTime.Now.ToString("g")}")); // Logs the transaction on both accounts
-                AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account2.accountNum, $"Recieved amount: {amount} - {DateTime.Now.ToString("g")}"));
+                AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account1.accountNum, $"Transfered amount: {amount} to account: {account2.accountNum} - {DateTime.Now.ToString("g")}")); // Logs the transaction on both accounts
+                AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account2.accountNum, $"Recieved amount: {amount} from account: {account1.accountNum} - {DateTime.Now.ToString("g")}"));
                 Console.WriteLine("Transfer complete. Press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();
