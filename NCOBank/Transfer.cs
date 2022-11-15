@@ -18,9 +18,11 @@ namespace NCOBank
             switch (selection)
             {
                 case "1":
+                    Console.Clear();
                     TransferAmmount(user);
                     break;
                 case "2":
+                    Console.Clear();
                     AccountManager.Run(user);
                     break;
             }

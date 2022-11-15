@@ -23,6 +23,7 @@ namespace NCOBank
                     Display(user);
                     break;
                 case "2":
+                    Console.Clear();
                     DisplayHistory(user);
                     break;
                 case "0":
