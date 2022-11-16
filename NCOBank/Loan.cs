@@ -9,10 +9,11 @@ namespace NCOBank
 {
     public class Loan
     {
-        private float totalPersonal;
-        private float totalSaving;
-        private float totalLoan;
-        private float newLoan;
+        private static float maxLoan;
+        private static float totalPersonal;
+        private static float totalSaving;
+        private static float totalLoan = 5;
+        private static float newLoan;
         public float NewLoan { get; set; }
         public float TotalPersonal { get; set; }
         public float TotalSaving { get; set; }
@@ -22,17 +23,13 @@ namespace NCOBank
             {
                 return totalLoan;
             }
-            set
-            {
-                totalLoan = 5;
-            } 
+           
         }
         public Loan()
         {
             this.NewLoan = newLoan;
             this.TotalPersonal = totalPersonal;
             this.TotalSaving = totalSaving;
-            this.TotalLoan = totalLoan;
         }
         public Loan(float newLoan, float answer)
         {
@@ -42,14 +39,53 @@ namespace NCOBank
 
         public static void Run(User user)
         {
-            Loan x = new Loan();
-            x.MaxLoan(user);
-            
+            Console.WriteLine("The current rate on our loan is 3%"); // flytta till checkloan metod?
+            CheckMaxLoan(user);
+            CheckLoan(user);
         }
-        public void MaxLoan(User user)
+        private static void CheckLoan(User user)
         {
-            // lägga till ränta på lån + press enter
-
+            if (maxLoan > 0)
+            {
+                
+                Console.WriteLine($"The max loan is {maxLoan}");
+            }
+            else if (maxLoan == 0)
+            {
+                Console.WriteLine("You don't have enough founds to take a loan");
+            }
+            else //ändra logiken, vid maxat lån blir maxLoan = 0
+            {
+                Console.WriteLine("You have reached the max amount on your loans. \nPlease contact the bank if you want to apply for a new one");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+                Console.Clear();
+                AccountManager.Run(user);
+            }
+            Console.WriteLine("Press enter to continue");
+            Console.ReadLine();
+            Console.WriteLine("Apply the amount you want to loan: ");
+            float answer;
+            while (!float.TryParse(Console.ReadLine(), out answer))
+            {
+                Console.WriteLine("Please enter an amount");
+            }
+            if (answer > maxLoan)
+            {
+                Console.WriteLine("The amount you are asking for is too high");
+            }
+            else
+            {
+                user.NumLoans += answer;
+                Console.WriteLine($"Your loan for {answer} has been approved");
+                AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
+            }
+            Console.WriteLine("Press enter to continue");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        private static float CheckMaxLoan(User user)
+        {
             foreach (var item in AccountManager.personalAccList)
             {
                 if (item.Value.Equals(user))
@@ -71,40 +107,7 @@ namespace NCOBank
                     newLoan = item.Value.NumLoans;
                 }
             }
-            float maxLoan = (totalPersonal + totalSaving) * totalLoan - newLoan;
-            if (maxLoan > 0)
-            {
-                Console.WriteLine($"The max loan is {maxLoan}");
-            }
-            else
-            {
-                Console.WriteLine("You have reached the max amount on your loans. \nPlease contact the bank if you want to apply for a new one");
-                Console.WriteLine("Press enter to continue");
-                Console.ReadLine();
-                Console.Clear();
-                AccountManager.Run(user);
-            } 
-            Console.WriteLine("Press enter to continue");
-            Console.ReadLine();
-            Console.WriteLine("Apply the amount you want to loan: ");
-            float answer;
-            float.TryParse(Console.ReadLine(), out answer);
-            user.NumLoans += answer;
-            
-            if (answer > maxLoan)
-            {
-                Console.WriteLine("The amount you are asking for is too high");
-            }
-            else
-            {
-                Console.WriteLine($"Your loan for {answer} has been approved");
-                AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
-            }
-            Console.WriteLine("Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
-
-
+            return maxLoan = (totalPersonal + totalSaving) * totalLoan - newLoan;
         }
     }
 }

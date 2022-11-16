@@ -48,8 +48,7 @@ namespace NCOBank
         }
         public static void CreateSavingsAcc(User user)
         {
-            SavingsAccount x = new SavingsAccount(" ", 100); //stökig, kolla på fixa sen
-            Console.WriteLine(x.DisplayInterest());
+            Console.WriteLine(SavingsAccount.DisplayInterest());
             Console.WriteLine("\nPress enter to continue.");
             Console.ReadLine();
             Console.WriteLine("Choose an account number (10 digits)");
@@ -57,7 +56,7 @@ namespace NCOBank
             Console.WriteLine("Choose your balance");
             float balance = float.Parse(Console.ReadLine());
             AccountManager.savingsAccList.Add(new SavingsAccount(accNum, balance), user);
-            Console.WriteLine(x.CheckInterest(balance) + "kr");
+            Console.WriteLine(SavingsAccount.CheckInterest(balance) + "kr");
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
