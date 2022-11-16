@@ -62,5 +62,77 @@ namespace NCOBank
             Console.ReadLine();
             Console.Clear();
         }
+        public static void CreateForeignCurrencyAcc(User user)
+        {
+            float usd = 0.096f;
+            float eur = 0.093f;
+            float dkk = 0.069f;
+            float newCurrency = 0;
+            float oldCurrency;
+            string accountName;
+            string Currency;
+            bool a = true;
+
+            Console.WriteLine("Choose an account number (10 digits)");
+            accountName = Console.ReadLine();
+            Console.WriteLine("Choose your balance in sek");
+
+            do
+            {
+                oldCurrency = float.Parse(Console.ReadLine());
+                if (oldCurrency > 0)
+                {
+                    a = false;
+                    break;
+                }
+                else if (oldCurrency <= 0)
+                {
+                    Console.WriteLine("You cant add a negative number, re-enter the amount you'd like to add");
+
+                }
+
+            } while (a = true);
+
+            Console.WriteLine("in which currency would you like to create your bank account in?");
+            string[] CurrencyArray = { "USD ", "EUR ", "DKK " };
+            foreach (var item in CurrencyArray)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            bool b;
+            do
+            {
+                Currency = Console.ReadLine();
+                if (Currency.Equals("USD"))
+                {
+                    newCurrency = oldCurrency * usd;
+                    b = true;
+                }
+                else if (Currency.Equals("EUR"))
+                {
+                    newCurrency = oldCurrency * eur;
+                    b = true;
+                }
+                else if (Currency.Equals("DKK"))
+                {
+                    newCurrency = oldCurrency * dkk;
+                    b = true;
+                }
+                else if (Currency != "USD" || Currency != "EUR" || Currency != "DKK")
+                {
+                    Console.WriteLine("You need to write in correct currency");
+                }
+
+            } while (b = false);
+
+            accountName = accountName + " " + Currency;
+
+            AccountManager.currencyAccList.Add(new CurrencyAccount(accountName, newCurrency), user);
+
+            Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
+            Console.ReadKey();
+            Console.Clear();
+
+        }
     }
 }
