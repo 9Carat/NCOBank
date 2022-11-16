@@ -13,7 +13,7 @@ namespace NCOBank
             Console.WriteLine("Please select one of the following options:");
             Console.WriteLine("1. Display your accounts");
             Console.WriteLine("2. Show account history");
-            Console.WriteLine("0. Previous menu");
+            Console.WriteLine("0. Previous menu ");
             string selection = Console.ReadLine();
 
             switch (selection)
