@@ -12,7 +12,8 @@ namespace NCOBank
         {
             Console.WriteLine("1. Add user");
             Console.WriteLine("2. Unlock user");
-            Console.WriteLine("3. Log out");
+            Console.WriteLine("3. Set account balance");
+            Console.WriteLine("0. Log out");
             string selection = Console.ReadLine();
 
             switch (selection)
@@ -24,6 +25,9 @@ namespace NCOBank
                     UnlockUser();
                     break;
                 case "3":
+                    SetBalance();
+                    break;
+                case "0":
                     Console.Clear();
                     BankMenu.Run();
                     break;
@@ -50,6 +54,74 @@ namespace NCOBank
             Console.ReadLine();
             Console.Clear();
             Run();
+        }
+        public static void SetBalance()
+        {
+            Console.WriteLine("Select user:");
+            string username = Console.ReadLine();
+            User user = null;
+
+            foreach(var item in BankMenu.userList)
+            {
+                if(item.Username == username)
+                {
+                    user = item;
+                    break;
+                }
+            }
+
+            if(user == null)
+            {
+                Console.WriteLine("User not found. Please try again");
+                Console.ReadLine();
+                Console.Clear();
+                Run();
+            }
+            else
+            {
+                Console.WriteLine("User has the following accounts:");
+
+                foreach (var item in AccountManager.personalAccList)
+                {
+                    if (item.Value.Equals(user))
+                        Console.WriteLine($"Personal account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                }
+                foreach (var item in AccountManager.savingsAccList)
+                {
+                    if (item.Value.Equals(user))
+                        Console.WriteLine($"Savings account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                }
+                foreach (var item in AccountManager.currencyAccList)
+                {
+                    if (item.Value.Equals(user))
+                        Console.WriteLine($"Currency account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                }
+
+                Console.WriteLine("Select account:");
+                string accNum = Console.ReadLine();
+                Console.WriteLine("Select balance:");
+                float amount = float.Parse(Console.ReadLine());
+
+                foreach (var item in AccountManager.personalAccList)
+                {
+                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
+                        item.Key.balance = amount;
+                }
+                foreach (var item in AccountManager.savingsAccList)
+                {
+                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
+                        item.Key.balance = amount;
+                }
+                foreach (var item in AccountManager.currencyAccList)
+                {
+                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
+                        item.Key.balance = amount;
+                }
+                Console.WriteLine("Balance set. Press enter to continue.");
+                Console.ReadLine();
+                Console.Clear();
+                Run();
+            }
         }
     }
 }

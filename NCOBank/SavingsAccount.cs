@@ -9,7 +9,7 @@ namespace NCOBank
     public class SavingsAccount : Account
     {
         public float SavingsInterest { get; }
-        public SavingsAccount(string accNum, float balance) : base(accNum, balance)
+        public SavingsAccount(string accNum, float balance)
         {
             this.SavingsInterest = 0.02f;
             this.accountNum = accNum;

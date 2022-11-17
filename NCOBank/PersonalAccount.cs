@@ -8,10 +8,10 @@ namespace NCOBank
 {
     public class PersonalAccount : Account
     {
-        public PersonalAccount(string accNum, float balance) : base(accNum, balance)  
+        public PersonalAccount(string accNum) 
         {
             this.accountNum = accNum;
-            this.balance = balance;
+            this.balance = 0;
         }
     }
 }
