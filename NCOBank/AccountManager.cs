@@ -13,6 +13,7 @@ namespace NCOBank
         public static Dictionary<Loan, User> loanList = new Dictionary<Loan, User>();
         public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
         public static List<KeyValuePair<string, string>> accountHistory = new List<KeyValuePair<string, string>>();
+        public static Dictionary<Account, User> accountList = new Dictionary<Account, User>();
 
 
         public static void Run(User user)

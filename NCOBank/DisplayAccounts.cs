@@ -35,28 +35,23 @@ namespace NCOBank
         public static void Display(User user)
         {
             Console.WriteLine("You currently have the following accounts:");
-            
-            foreach(var item in AccountManager.personalAccList)
+
+            foreach (var item in AccountManager.accountList)
             {
-                if (item.Value.Equals(user))
+                if (item.Value.Equals(user) && item.Key.accType == "personal")
                 {
                     Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                 }
-            }
-            foreach (var item in AccountManager.savingsAccList)
-            {
-                if (item.Value.Equals(user))
+                else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                }
+                else if (item.Value.Equals(user) && item.Key.accType == "currency")
+                {
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                 }
             }
-            foreach (var item in AccountManager.currencyAccList)
-            {
-                if (item.Value.Equals(user))
-                {
-                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
-                }
-            }
+
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();
@@ -68,7 +63,7 @@ namespace NCOBank
             string account = Console.ReadLine();
 
             bool isUserAccount = false;
-            foreach (var item in AccountManager.personalAccList) // Checks if account belongs to user
+            foreach (var item in AccountManager.accountList) // Checks if account belongs to user
             {
                 if (item.Key.accountNum == account && item.Value.Equals(user))
                 {
@@ -79,11 +74,10 @@ namespace NCOBank
 
             if (isUserAccount)
             {
-                foreach (KeyValuePair<string, string> acc in AccountManager.accountHistory)
+                foreach (KeyValuePair<string, string> item in AccountManager.accountHistory)
                 {
-                    if (acc.Key == account)
-                        Console.WriteLine($"Account: {acc.Key} - {acc.Value}");
-
+                    if (item.Key == account)
+                        Console.WriteLine($"Account: {item.Key} - {item.Value}");
                 }
             }
             else

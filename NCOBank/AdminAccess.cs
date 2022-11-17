@@ -81,20 +81,20 @@ namespace NCOBank
             {
                 Console.WriteLine("User has the following accounts:");
 
-                foreach (var item in AccountManager.personalAccList)
+                foreach (var item in AccountManager.accountList)
                 {
-                    if (item.Value.Equals(user))
-                        Console.WriteLine($"Personal account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
-                }
-                foreach (var item in AccountManager.savingsAccList)
-                {
-                    if (item.Value.Equals(user))
-                        Console.WriteLine($"Savings account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
-                }
-                foreach (var item in AccountManager.currencyAccList)
-                {
-                    if (item.Value.Equals(user))
-                        Console.WriteLine($"Currency account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    if (item.Value.Equals(user) && item.Key.accType == "personal")
+                    {
+                        Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    }
+                    else if (item.Value.Equals(user) && item.Key.accType == "savings")
+                    {
+                        Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    }
+                    else if (item.Value.Equals(user) && item.Key.accType == "currency")
+                    {
+                        Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                    }
                 }
 
                 Console.WriteLine("Select account:");
@@ -102,21 +102,15 @@ namespace NCOBank
                 Console.WriteLine("Select balance:");
                 float amount = float.Parse(Console.ReadLine());
 
-                foreach (var item in AccountManager.personalAccList)
+                foreach (var item in AccountManager.accountList)
                 {
                     if (item.Value.Equals(user) && item.Key.accountNum == accNum)
+                    {
                         item.Key.balance = amount;
+                        AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"{amount} received - {DateTime.Now.ToString("g")}"));
+                    }
                 }
-                foreach (var item in AccountManager.savingsAccList)
-                {
-                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
-                        item.Key.balance = amount;
-                }
-                foreach (var item in AccountManager.currencyAccList)
-                {
-                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
-                        item.Key.balance = amount;
-                }
+               
                 Console.WriteLine("Balance set. Press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();

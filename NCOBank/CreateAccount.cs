@@ -36,35 +36,32 @@ namespace NCOBank
         }
         public static void CreatePersonalAcc(User user)
         {
-            //Console.WriteLine("Choose an account number (xxx xxx xxx-x)");
-            //string accNum = Console.ReadLine();
-            
-            AccountManager.personalAccList.Add(new PersonalAccount(), user); // stores the account in the dictionary
-            foreach (var item in AccountManager.personalAccList)
+            AccountManager.accountList.Add(new PersonalAccount(), user); // stores the account in the dictionary
+
+            foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user))
                 {
                      accNum = item.Key.accountNum;
                 }
             }
-            
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
-
             Console.WriteLine($"Personal account {accNum} successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
         }
         public static void CreateSavingsAcc(User user)
         {
-            AccountManager.personalAccList.Add(new PersonalAccount(), user); // stores the account in the dictionary
-            foreach (var item in AccountManager.personalAccList)
+            AccountManager.accountList.Add(new SavingsAccount(), user);
+
+            foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user))
                 {
                     accNum = item.Key.accountNum;
                 }
             }
-            AccountManager.savingsAccList.Add(new SavingsAccount(), user); 
+            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}"));
             Console.WriteLine($"Savings account {accNum} successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
@@ -134,7 +131,7 @@ namespace NCOBank
 
             accountName = accountName + " " + Currency;
 
-            AccountManager.currencyAccList.Add(new CurrencyAccount(accountName, newCurrency), user);
+            AccountManager.currencyAccList.Add(new CurrencyAccount(Currency), user);
 
             Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
             Console.ReadKey();

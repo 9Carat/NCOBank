@@ -19,7 +19,7 @@ namespace NCOBank
             {
                 case "1":
                     Console.Clear();
-                    TransferAmmount(user);
+                    TransferAmount(user);
                     break;
                 case "2":
                     Console.Clear();
@@ -27,7 +27,7 @@ namespace NCOBank
                     break;
             }
         }
-        public static void TransferAmmount(User user)
+        public static void TransferAmount(User user)
         {
             bool acc1Exists = false;
             bool acc2Exists = false;
@@ -40,7 +40,7 @@ namespace NCOBank
             Console.WriteLine("Select the amount you want to transfer");
             float amount = float.Parse(Console.ReadLine());
 
-            foreach (var item in AccountManager.personalAccList) 
+            foreach (var item in AccountManager.accountList) 
             {
                 if (item.Key.accountNum == accSend && item.Key.balance > amount && item.Value.Equals(user)) // Checks if sending acc exists, belongs to the user and has enough coverage
                 {
