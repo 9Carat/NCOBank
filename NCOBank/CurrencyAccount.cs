@@ -10,10 +10,12 @@ namespace NCOBank
     {
         public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
 
-        public CurrencyAccount(string accNum, float balance)
+        public CurrencyAccount(string currency)
         {
-            this.balance = balance;
-            this.accountNum = accNum;
+            this.balance = 0;
+            this.accountNum = CreateAccount.RndAccNum();
+            this.accType = "currency";
+            this.currency = currency;
         }
     }
 }

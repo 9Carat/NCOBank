@@ -25,6 +25,8 @@ namespace NCOBank
             this.SavingsInterest = savingsInterest;
             this.accountNum = CreateAccount.RndAccNum();
             this.balance = 0;
+            this.accType = "savings";
+
         }
         public static string CheckInterest(float balance) // lägga till när vi flyttar pengar till sparkonto!!
         {
