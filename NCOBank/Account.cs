@@ -10,5 +10,8 @@ namespace NCOBank
     {
         public string accountNum;
         public float balance;
+        public string accType;
+        public float savingsInterest;
+        public string currency;
     }
 }

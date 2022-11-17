@@ -8,12 +8,13 @@ namespace NCOBank
 {
     public class CurrencyAccount : Account
     {
-        public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
+        //public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
 
-        public CurrencyAccount(string accNum, float balance)
+        public CurrencyAccount(string accNum)
         {
-            this.balance = balance;
+            this.balance = 0;
             this.accountNum = accNum;
+            this.accType = "currency";
         }
     }
 }

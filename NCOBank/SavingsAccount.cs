@@ -9,11 +9,12 @@ namespace NCOBank
     public class SavingsAccount : Account
     {
         public float SavingsInterest { get; }
-        public SavingsAccount(string accNum, float balance)
+        public SavingsAccount(string accNum)
         {
             this.SavingsInterest = 0.02f;
             this.accountNum = accNum;
-            this.balance = balance;
+            this.balance = 0;
+            this.accType = "savings";
         }
         public float CheckInterest(float balance)
         {

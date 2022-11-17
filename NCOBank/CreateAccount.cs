@@ -37,7 +37,7 @@ namespace NCOBank
             Console.WriteLine("Choose an account number (xxx xxx xxx-x)");
             string accNum = Console.ReadLine();
 
-            AccountManager.personalAccList.Add(new PersonalAccount(accNum), user); // stores the account in the dictionary
+            AccountManager.accountList.Add(new PersonalAccount(accNum), user); // stores the account in the dictionary
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
 
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
@@ -46,91 +46,91 @@ namespace NCOBank
         }
         public static void CreateSavingsAcc(User user)
         {
-            SavingsAccount x = new SavingsAccount(" ", 100); //stökig, kolla på fixa sen
-            Console.WriteLine(x.DisplayInterest());
-            Console.WriteLine("\nPress enter to continue.");
-            Console.ReadLine();
+            //SavingsAccount x = new SavingsAccount(" ", 100); //stökig, kolla på fixa sen
+            //Console.WriteLine(x.DisplayInterest());
+            //Console.WriteLine("\nPress enter to continue.");
+            //Console.ReadLine();
             Console.WriteLine("Choose an account number (10 digits)");
             string accNum = Console.ReadLine();
-            Console.WriteLine("Choose your balance");
-            float balance = float.Parse(Console.ReadLine());
-            AccountManager.savingsAccList.Add(new SavingsAccount(accNum, balance), user);
-            Console.WriteLine(x.CheckInterest(balance) + "kr");
+            //Console.WriteLine("Choose your balance");
+            //float balance = float.Parse(Console.ReadLine());
+            AccountManager.accountList.Add(new SavingsAccount(accNum), user);
+            //Console.WriteLine(x.CheckInterest(balance) + "kr");
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
         }
-        public static void CreateForeignCurrencyAcc(User user)
-        {
-            float usd = 0.096f;
-            float eur = 0.093f;
-            float dkk = 0.069f;
-            float newCurrency = 0;
-            float oldCurrency;
-            string accountName;
-            string Currency;
-            bool a = true;
+        //public static void CreateForeignCurrencyAcc(User user)
+        //{
+        //    float usd = 0.096f;
+        //    float eur = 0.093f;
+        //    float dkk = 0.069f;
+        //    float newCurrency = 0;
+        //    float oldCurrency;
+        //    string accountName;
+        //    string Currency;
+        //    bool a = true;
 
-            Console.WriteLine("Choose an account number (10 digits)");
-            accountName = Console.ReadLine();
-            Console.WriteLine("Choose your balance in sek");
+        //    Console.WriteLine("Choose an account number (10 digits)");
+        //    accountName = Console.ReadLine();
+        //    Console.WriteLine("Choose your balance in sek");
 
-            do
-            {
-                oldCurrency = float.Parse(Console.ReadLine());
-                if (oldCurrency > 0)
-                {
-                    a = false;
-                    break;
-                }
-                else if (oldCurrency <= 0)
-                {
-                    Console.WriteLine("You cant add a negative number, re-enter the amount you'd like to add");
+        //    do
+        //    {
+        //        oldCurrency = float.Parse(Console.ReadLine());
+        //        if (oldCurrency > 0)
+        //        {
+        //            a = false;
+        //            break;
+        //        }
+        //        else if (oldCurrency <= 0)
+        //        {
+        //            Console.WriteLine("You cant add a negative number, re-enter the amount you'd like to add");
 
-                }
+        //        }
 
-            } while (a = true);
+        //    } while (a = true);
 
-            Console.WriteLine("in which currency would you like to create your bank account in?");
-            string[] CurrencyArray = { "USD ", "EUR ", "DKK " };
-            foreach (var item in CurrencyArray)
-            {
-                Console.WriteLine(item.ToString());
-            }
-            bool b;
-            do
-            {
-                Currency = Console.ReadLine();
-                if (Currency.Equals("USD"))
-                {
-                    newCurrency = oldCurrency * usd;
-                    b = true;
-                }
-                else if (Currency.Equals("EUR"))
-                {
-                    newCurrency = oldCurrency * eur;
-                    b = true;
-                }
-                else if (Currency.Equals("DKK"))
-                {
-                    newCurrency = oldCurrency * dkk;
-                    b = true;
-                }
-                else if (Currency != "USD" || Currency != "EUR" || Currency != "DKK")
-                {
-                    Console.WriteLine("You need to write in correct currency");
-                }
+        //    Console.WriteLine("in which currency would you like to create your bank account in?");
+        //    string[] CurrencyArray = { "USD ", "EUR ", "DKK " };
+        //    foreach (var item in CurrencyArray)
+        //    {
+        //        Console.WriteLine(item.ToString());
+        //    }
+        //    bool b;
+        //    do
+        //    {
+        //        Currency = Console.ReadLine();
+        //        if (Currency.Equals("USD"))
+        //        {
+        //            newCurrency = oldCurrency * usd;
+        //            b = true;
+        //        }
+        //        else if (Currency.Equals("EUR"))
+        //        {
+        //            newCurrency = oldCurrency * eur;
+        //            b = true;
+        //        }
+        //        else if (Currency.Equals("DKK"))
+        //        {
+        //            newCurrency = oldCurrency * dkk;
+        //            b = true;
+        //        }
+        //        else if (Currency != "USD" || Currency != "EUR" || Currency != "DKK")
+        //        {
+        //            Console.WriteLine("You need to write in correct currency");
+        //        }
 
-            } while (b = false);
+        //    } while (b = false);
 
-            accountName = accountName + " " + Currency;
+        //    accountName = accountName + " " + Currency;
 
-            AccountManager.currencyAccList.Add(new CurrencyAccount(accountName, newCurrency), user);
+        //    AccountManager.currencyAccList.Add(new CurrencyAccount(accountName, newCurrency), user);
 
-            Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
-            Console.ReadKey();
-            Console.Clear();
+        //    Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
+        //    Console.ReadKey();
+        //    Console.Clear();
 
         }
     }
-}
+

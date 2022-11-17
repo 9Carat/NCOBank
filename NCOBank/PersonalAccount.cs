@@ -12,6 +12,7 @@ namespace NCOBank
         {
             this.accountNum = accNum;
             this.balance = 0;
+            this.accType = "personal";
         }
     }
 }

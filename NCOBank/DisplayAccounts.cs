@@ -36,27 +36,22 @@ namespace NCOBank
         {
             Console.WriteLine("You currently have the following accounts:");
             
-            foreach(var item in AccountManager.personalAccList)
+            foreach(var item in AccountManager.accountList)
             {
-                if (item.Value.Equals(user))
+                if (item.Value.Equals(user) && item.Key.accType == "personal")
                 {
                     Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                 }
-            }
-            foreach (var item in AccountManager.savingsAccList)
-            {
-                if (item.Value.Equals(user))
+                else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                }
+                else if (item.Value.Equals(user) && item.Key.accType == "currency")
+                {
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                 }
             }
-            foreach (var item in AccountManager.currencyAccList)
-            {
-                if (item.Value.Equals(user))
-                {
-                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
-                }
-            }
+           
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();
