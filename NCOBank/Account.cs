@@ -10,11 +10,5 @@ namespace NCOBank
     {
         public string accountNum;
         public float balance;
-
-        public Account(string accNum, float balance)
-        {
-            this.accountNum = accNum;
-            this.balance = balance;
-        }
     }
 }
