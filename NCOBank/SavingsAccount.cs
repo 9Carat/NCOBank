@@ -8,22 +8,34 @@ namespace NCOBank
 {
     public class SavingsAccount : Account
     {
-        public float SavingsInterest { get; }
-        public SavingsAccount(string accNum, float balance)
+        private static float savingsInterest = 0.02f;
+        public float SavingsInterest
         {
-            this.SavingsInterest = 0.02f;
-            this.accountNum = accNum;
-            this.balance = balance;
+            get
+            {
+                return savingsInterest;
+            }
+            set
+            {
+                savingsInterest = value;
+            }
         }
-        public float CheckInterest(float balance)
+        public SavingsAccount()
         {
-            float interest = balance * 12 * SavingsInterest;
+            this.SavingsInterest = savingsInterest;
+            this.accountNum = CreateAccount.RndAccNum();
+            this.balance = 0;
+        }
+        public static string CheckInterest(float balance) // lägga till när vi flyttar pengar till sparkonto!!
+        {
+            float interest = balance * 12 * savingsInterest;
             Console.Write("Current yearly interest based on your monthly savings: ");
-            return interest;
+            interest.ToString();
+            return String.Format("{0:P2}", interest);
         }
-        public string DisplayInterest()
+        public static string DisplayInterest()
         {
-            return $"Current interest on a yearly Savings Account {SavingsInterest}%";
+            return String.Format("Current yearly interest rate is {0:P2}", savingsInterest);
         }
     }
 }
