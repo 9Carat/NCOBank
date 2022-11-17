@@ -58,7 +58,8 @@ namespace NCOBank
         public static void DisplayHistory(User user)
         {
             Console.WriteLine("Which account do you want show the history for?");
-            string account = Console.ReadLine();
+            int account; 
+            int.TryParse(Console.ReadLine(), out account);
 
             bool isUserAccount = false;
             foreach (var item in AccountManager.personalAccList) // Checks if account belongs to user
@@ -72,7 +73,7 @@ namespace NCOBank
 
             if (isUserAccount)
             {
-                foreach (KeyValuePair<string, string> acc in AccountManager.accountHistory)
+                foreach (KeyValuePair<int, string> acc in AccountManager.accountHistory)
                 {
                     if (acc.Key == account)
                         Console.WriteLine($"Account: {acc.Key} - {acc.Value}");

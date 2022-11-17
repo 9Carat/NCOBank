@@ -8,13 +8,12 @@ namespace NCOBank
 {
     public abstract class Account
     {
-        public string accountNum;
+        public int accountNum;
         public float balance;
 
-        public Account(string accNum, float balance)
+        public Account()
         {
-            this.accountNum = accNum;
-            this.balance = balance;
-        }
+            
+        }        
     }
 }

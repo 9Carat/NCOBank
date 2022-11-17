@@ -34,13 +34,13 @@ namespace NCOBank
         }
         public static void CreatePersonalAcc(User user)
         {
-            Console.WriteLine("Choose an account number (xxx xxx xxx-x)");
-            string accNum = Console.ReadLine();
+            int accNum = CreateAccount.RndAccNUm();
+            Console.WriteLine($"Your account number is: {accNum}");
             Console.WriteLine("Choose your balance");
             float balance = float.Parse(Console.ReadLine());
 
             AccountManager.personalAccList.Add(new PersonalAccount(accNum, balance), user); // stores the account in the dictionary
-            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
+            AccountManager.accountHistory.Add(new KeyValuePair<int, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
 
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
@@ -51,8 +51,8 @@ namespace NCOBank
             Console.WriteLine(SavingsAccount.DisplayInterest());
             Console.WriteLine("\nPress enter to continue.");
             Console.ReadLine();
-            Console.WriteLine("Choose an account number (10 digits)");
-            string accNum = Console.ReadLine();
+            int accNum = CreateAccount.RndAccNUm();
+            Console.WriteLine($"Your account number is: {accNum}");
             Console.WriteLine("Choose your balance");
             float balance = float.Parse(Console.ReadLine());
             AccountManager.savingsAccList.Add(new SavingsAccount(accNum, balance), user);
@@ -60,6 +60,17 @@ namespace NCOBank
             Console.WriteLine("Personal account successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
+        }
+        public static int RndAccNUm()
+        {
+            Random rnd = new Random();
+            HashSet<int> accNum = new HashSet<int>();
+            while (accNum.Count < 5)
+            {
+                accNum.Add(rnd.Next(1000000000, 2000000000));
+            }
+            int randomNumber = accNum.First();
+            return randomNumber;
         }
     }
 }

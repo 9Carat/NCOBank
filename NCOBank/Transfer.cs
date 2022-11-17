@@ -34,9 +34,11 @@ namespace NCOBank
             Account account1 = null;
             Account account2 = null;
             Console.WriteLine("From which account do you want to transfer from");
-            string accSend = Console.ReadLine();
+            int accSend;
+            int.TryParse(Console.ReadLine(), out accSend);
             Console.WriteLine("To which account do you want to make the transfer to?");
-            string accRecieve = Console.ReadLine();
+            int accRecieve;
+            int.TryParse(Console.ReadLine(), out accRecieve);
             Console.WriteLine("Select the amount you want to transfer");
             float amount = float.Parse(Console.ReadLine());
 
@@ -59,8 +61,8 @@ namespace NCOBank
             {
                 account1.balance -= amount;
                 account2.balance += amount;
-                AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account1.accountNum, $"Transfered amount: {amount} to account: {account2.accountNum} - {DateTime.Now.ToString("g")}")); // Logs the transaction on both accounts
-                AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account2.accountNum, $"Recieved amount: {amount} from account: {account1.accountNum} - {DateTime.Now.ToString("g")}"));
+                AccountManager.accountHistory.Add(new KeyValuePair<int, string>(account1.accountNum, $"Transfered amount: {amount} to account: {account2.accountNum} - {DateTime.Now.ToString("g")}")); // Logs the transaction on both accounts
+                AccountManager.accountHistory.Add(new KeyValuePair<int, string>(account2.accountNum, $"Recieved amount: {amount} from account: {account1.accountNum} - {DateTime.Now.ToString("g")}"));
                 Console.WriteLine("Transfer complete. Press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();

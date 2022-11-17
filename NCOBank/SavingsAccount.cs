@@ -20,7 +20,7 @@ namespace NCOBank
                 savingsInterest = value;
             }
         }
-        public SavingsAccount(string accNum, float balance) : base(accNum, balance)
+        public SavingsAccount(int accNum, float balance) 
         {
             this.SavingsInterest = savingsInterest;
             this.accountNum = accNum;
