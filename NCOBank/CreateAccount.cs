@@ -8,11 +8,13 @@ namespace NCOBank
 {
     internal class CreateAccount
     {
+        private static string accNum;
+        public string MyProperty { get; set; }
         public static void Run(User user)
         {
             Console.WriteLine("Please select one of the following options:");
             Console.WriteLine("1. Create a personal account");
-            Console.WriteLine("2. Create a savings account");
+            Console.WriteLine("2. Create a savings account" + " - " + SavingsAccount.DisplayInterest());
             Console.WriteLine("3. Previous menu");
             string selection = Console.ReadLine();
 
@@ -34,29 +36,36 @@ namespace NCOBank
         }
         public static void CreatePersonalAcc(User user)
         {
-            Console.WriteLine("Choose an account number (xxx xxx xxx-x)");
-            string accNum = Console.ReadLine();
-
-            AccountManager.personalAccList.Add(new PersonalAccount(accNum), user); // stores the account in the dictionary
+            //Console.WriteLine("Choose an account number (xxx xxx xxx-x)");
+            //string accNum = Console.ReadLine();
+            
+            AccountManager.personalAccList.Add(new PersonalAccount(), user); // stores the account in the dictionary
+            foreach (var item in AccountManager.personalAccList)
+            {
+                if (item.Value.Equals(user))
+                {
+                     accNum = item.Key.accountNum;
+                }
+            }
+            
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
 
-            Console.WriteLine("Personal account successfully created. Press enter to continue.");
+            Console.WriteLine($"Personal account {accNum} successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
         }
         public static void CreateSavingsAcc(User user)
         {
-            SavingsAccount x = new SavingsAccount(" ", 100); //stökig, kolla på fixa sen
-            Console.WriteLine(x.DisplayInterest());
-            Console.WriteLine("\nPress enter to continue.");
-            Console.ReadLine();
-            Console.WriteLine("Choose an account number (10 digits)");
-            string accNum = Console.ReadLine();
-            Console.WriteLine("Choose your balance");
-            float balance = float.Parse(Console.ReadLine());
-            AccountManager.savingsAccList.Add(new SavingsAccount(accNum, balance), user);
-            Console.WriteLine(x.CheckInterest(balance) + "kr");
-            Console.WriteLine("Personal account successfully created. Press enter to continue.");
+            AccountManager.personalAccList.Add(new PersonalAccount(), user); // stores the account in the dictionary
+            foreach (var item in AccountManager.personalAccList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    accNum = item.Key.accountNum;
+                }
+            }
+            AccountManager.savingsAccList.Add(new SavingsAccount(), user); 
+            Console.WriteLine($"Savings account {accNum} successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
         }
@@ -130,7 +139,18 @@ namespace NCOBank
             Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
             Console.ReadKey();
             Console.Clear();
-
+        }
+        public static string RndAccNum()
+        {
+            Random rnd = new Random();
+            HashSet<int> accNum = new HashSet<int>();
+            while (accNum.Count < 10)
+            {
+                accNum.Add(rnd.Next(1000000000, 2000000000));
+            }
+            int randomAccNumber = accNum.First();
+            randomAccNumber.ToString();
+            return String.Format("{0:000 000 000-0}", randomAccNumber);
         }
     }
 }

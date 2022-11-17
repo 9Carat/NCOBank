@@ -8,9 +8,9 @@ namespace NCOBank
 {
     public class PersonalAccount : Account
     {
-        public PersonalAccount(string accNum) 
+        public PersonalAccount() 
         {
-            this.accountNum = accNum;
+            this.accountNum = CreateAccount.RndAccNum();
             this.balance = 0;
         }
     }
