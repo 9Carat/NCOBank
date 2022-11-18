@@ -12,7 +12,8 @@ namespace NCOBank
         {
             Console.WriteLine("Please select one of the following options:");
             Console.WriteLine("1. Transfer amount between acccounts");
-            Console.WriteLine("2. Previous menu");
+            Console.WriteLine("2. Transfer to currency account");
+            Console.WriteLine("3. Previous menu");
             string selection = Console.ReadLine();
 
             switch (selection)
@@ -22,6 +23,10 @@ namespace NCOBank
                     TransferAmount(user);
                     break;
                 case "2":
+                    Console.Clear();
+                    TransferForeignCurrency(user);
+                    break;
+                case "3":
                     Console.Clear();
                     AccountManager.Run(user);
                     break;
@@ -81,6 +86,95 @@ namespace NCOBank
             Console.ReadLine();
             Console.Clear();
             Run(user);
+        }
+        public static void TransferForeignCurrency (User user)
+        {
+            float amount;
+            Account accSend = null;
+            string accountSend;
+            string accountRecieve;
+            Account accRecieve = null;
+            bool accountRecieveExist = false;
+            bool accountSendExist = false;
+
+
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    Console.WriteLine(item.Key.accountNum);
+                    Console.WriteLine(item.Key.balance);
+                    Console.WriteLine();
+                }
+                
+            }
+            Console.WriteLine("Which account would you send from? ");
+            accountSend = Console.ReadLine();
+            Console.WriteLine("Which account do you want to send it to?");
+            accountRecieve = Console.ReadLine();
+            Console.WriteLine("how much would you like to transfer? ");
+            float.TryParse(Console.ReadLine(), out amount);
+
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Value.Equals(user) && item.Key.accountNum == accountSend)
+                {
+                    accSend = item.Key;
+                    accountSendExist = true;
+                }
+            }
+         
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Value.Equals(user) && accountRecieve == item.Key.accountNum && item.Key.accType == "currency")
+                {
+                    if (item.Key.currency == "USD")
+                    {
+                        accountRecieveExist = true;
+                        accRecieve = item.Key;
+   
+                    } else if (item.Key.currency == "EUR")
+                    {
+                        item.Key.balance += amount * AccountManager.ExchangeRate["EUR"];
+
+                    } else if (item.Key.currency == "DKK")
+                    {
+                        item.Key.balance += amount * AccountManager.ExchangeRate["DKK"];
+                    }
+                    
+                } 
+
+            }
+            if (accountSendExist && accountRecieveExist)
+            {
+                if (accRecieve.currency == "USD")
+                {
+                    accSend.balance -= amount;
+                    accRecieve.balance += amount * AccountManager.ExchangeRate["USD"];
+                }
+                else if (accRecieve.currency == "EUR")
+                {
+                    accSend.balance -= amount;
+                    accRecieve.balance += amount * AccountManager.ExchangeRate["EUR"];
+                }
+                else if (accRecieve.currency == "DKK")
+                {
+                    accSend.balance -= amount;
+                    accRecieve.balance += amount * AccountManager.ExchangeRate["DKK"];
+                }
+            } else
+            {
+                Console.WriteLine("one or both of the accounts was not found, try again");
+            }
+          
+            
+            Console.WriteLine("Transfer complete");
+            Console.ReadLine();
+            Console.Clear();
+            Run(user);
+            
+
+
         }
     }
 }

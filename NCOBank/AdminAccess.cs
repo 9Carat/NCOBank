@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,9 @@ namespace NCOBank
                     break;
                 case "3":
                     SetBalance();
+                    break;
+                case "4":
+                    UppdateExchangeRate();
                     break;
                 case "0":
                     Console.Clear();
@@ -116,6 +120,19 @@ namespace NCOBank
                 Console.Clear();
                 Run();
             }
+           
+        }
+        public static void UppdateExchangeRate()
+        {
+            Console.WriteLine("USD, EUR, DKK");
+            float exchangeRate;
+            Console.WriteLine("Type the name of the currency you want to uppdate: ");
+            string currency = Console.ReadLine();
+            Console.WriteLine("Type the value of the currency you want to uppdate in this format 0.000: ");
+            float.TryParse(Console.ReadLine(), out exchangeRate);
+
+            AccountManager.ExchangeRate.Add(currency, exchangeRate);
+            Run();
         }
     }
 }

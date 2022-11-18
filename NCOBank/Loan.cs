@@ -82,14 +82,14 @@ namespace NCOBank
         }
         private static float CheckMaxLoan(User user)
         {
-            foreach (var item in AccountManager.personalAccList)
+            foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user))
                 {
                     totalPersonal = item.Key.balance;
                 }
             }
-            foreach (var item in AccountManager.savingsAccList)
+            foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user))
                 {

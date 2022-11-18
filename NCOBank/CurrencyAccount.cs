@@ -8,8 +8,7 @@ namespace NCOBank
 {
     public class CurrencyAccount : Account
     {
-        public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
-
+        
         public CurrencyAccount(string currency)
         {
             this.balance = 0;
