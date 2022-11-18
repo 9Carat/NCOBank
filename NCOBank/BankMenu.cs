@@ -14,35 +14,44 @@ namespace NCOBank
 
         public static void Run()
         {
-            Console.WriteLine("Welcome to the NCO Bank!");
-            Console.WriteLine("Please select one of the following options:");
-            Console.WriteLine("1. Login");
-            Console.WriteLine("2. Create account");
-            Console.WriteLine("3. Admin access (admin only)");
-            string selection = Console.ReadLine();
-
-            switch (selection)
+            string selection;
+            do
             {
-                case "1":
-                    Console.Clear();
-                    Login();
-                    break;
-                case "2":
-                    Console.Clear();
-                    userList.Add(new User("a", "1")); // Creates temp accounts
-                    userList.Add(new User("b", "2"));
-                    Console.WriteLine("Accounts created! (line 32)");
-                    Run();
-                    //CreateAccount();
-                    break;
-                case "3":
-                    Console.Clear();
-                    AdminLogin();
-                    break;
-                default:
-                    Console.WriteLine("Please input your choice using only numbers");
-                    break;
-            }
+                Console.WriteLine("Welcome to the NCO Bank!");
+                Console.WriteLine("Please select one of the following options:");
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Create account");
+                Console.WriteLine("3. Admin access (admin only)");
+                Console.WriteLine("4. Exit");
+                selection = Console.ReadLine();
+
+                switch (selection)
+                {
+                    case "1":
+                        Console.Clear();
+                        Login();
+                        break;
+                    case "2":
+                        Console.Clear();
+                        //userList.Add(new User("a", "1")); // Creates temp accounts
+                        //userList.Add(new User("b", "2"));
+                        Console.WriteLine("Accounts created! (line 32)");
+                        //Run();
+                        CreateAccount();
+                        break;
+                    case "3":
+                        Console.Clear();
+                        AdminLogin();
+                        break;
+                    case "4":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Please input your choice using only numbers");
+                        break;
+                }
+            } while (selection != "4");
+            
         }
         public static void Login()
         {
@@ -127,7 +136,23 @@ namespace NCOBank
         public static void CreateAccount()
         {
             Console.WriteLine("Please enter your social security number(yyyymmdd-xxxx). This will be your username.");
-            string newUsername = Console.ReadLine();
+            string newUsername;
+            bool ok = false;  
+            do
+            { 
+                newUsername = Console.ReadLine();
+                if (!System.Text.RegularExpressions.Regex.IsMatch(newUsername, @"\d{8}-\d{4}"))
+                {
+                    Console.WriteLine("Enter as yyyymmdd-xxxx!");
+                    ok = false;
+                }
+                else
+                {
+                    ok = true;
+                }
+                
+            } while (ok == false);
+
             Console.WriteLine("Please enter your new password");
             string newPassword = Console.ReadLine();
 
