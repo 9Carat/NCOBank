@@ -14,7 +14,7 @@ namespace NCOBank
             Console.ReadLine();
             Console.Clear();
         }
-        public static void MessegeColor(string output, bool ok = true)
+        public static void MessageColor(string output, bool ok = true)
         {
             if (ok)
             {
@@ -27,7 +27,7 @@ namespace NCOBank
             Console.WriteLine(output);
             Console.ResetColor();
         }
-        public static void YellowMessegeColor(string output)
+        public static void YellowMessageColor(string output)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(output);
