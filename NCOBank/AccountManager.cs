@@ -8,10 +8,7 @@ namespace NCOBank
 {
     public class AccountManager
     {
-        public static Dictionary<PersonalAccount, User> personalAccList = new Dictionary<PersonalAccount, User>();
-        public static Dictionary<SavingsAccount, User> savingsAccList = new Dictionary<SavingsAccount, User>();
         public static Dictionary<Loan, User> loanList = new Dictionary<Loan, User>();
-        public static Dictionary<CurrencyAccount, User> currencyAccList = new Dictionary<CurrencyAccount, User>();
         public static List<KeyValuePair<string, string>> accountHistory = new List<KeyValuePair<string, string>>();
         public static Dictionary<Account, User> accountList = new Dictionary<Account, User>();
 
@@ -49,6 +46,11 @@ namespace NCOBank
                     case "0":
                         Console.Clear();
                         BankMenu.Run();
+                        break;
+                    default:
+                        Console.WriteLine("Please input your choice using the correct number. Press enter to continue");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                 }
             }

@@ -131,7 +131,7 @@ namespace NCOBank
 
             accountName = accountName + " " + Currency;
 
-            AccountManager.currencyAccList.Add(new CurrencyAccount(Currency), user);
+            AccountManager.accountList.Add(new CurrencyAccount(Currency), user);
 
             Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
             Console.ReadKey();

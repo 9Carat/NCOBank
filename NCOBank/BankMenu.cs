@@ -14,8 +14,31 @@ namespace NCOBank
 
         public static void Run()
         {
-            string selection;
-            do
+
+            Console.WriteLine(" _   _   _____   _____     ");
+            Console.WriteLine("| \\ | | /  __ \\ |  _  |    ");
+            Console.WriteLine("|  \\| | | /  \\/ | | | |    ");
+            Console.WriteLine("| . ` | | |     | | | |     ");
+            Console.WriteLine("| |\\  | | \\__/\\ \\ \\_/ /    ");
+            Console.WriteLine("\\_| \\_/  \\____/  \\___/     ");
+            Console.WriteLine(" ");
+            Console.WriteLine("______                _    ");
+            Console.WriteLine("| ___ \\              | |   ");
+            Console.WriteLine("| |_/ /  __ _  _ __  | | __");
+            Console.WriteLine("| ___ \\ / _` || '_ \\ | |/ /");
+            Console.WriteLine("| |_/ /| (_| || | | ||   < ");
+            Console.WriteLine("\\____/  \\__,_||_| |_||_|\\_\\");
+            Console.WriteLine(" ");
+            
+            Console.WriteLine("Welcome to the NCO Bank!");
+            Console.WriteLine("Please select one of the following options:");
+            Console.WriteLine("1. Login");
+            Console.WriteLine("2. Create account");
+            Console.WriteLine("3. Admin access (admin only)");
+            string selection = Console.ReadLine();
+
+            switch (selection)
+
             {
                 Console.WriteLine("Welcome to the NCO Bank!");
                 Console.WriteLine("Please select one of the following options:");
@@ -73,12 +96,12 @@ namespace NCOBank
                     existingUser = userList.Find(u => u.Username.Contains(enteredUser));
                     existingPassword = userList.Find(u => u.Password.Contains(enteredPassword));
 
-                    if (existingUser == null || existingPassword == null || existingUser != existingPassword)
+                    if (existingUser.Username != enteredUser || existingPassword.Password != enteredPassword || existingUser != existingPassword)
                     {
                         Console.WriteLine("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
                         attempts++;
                     }
-                    else if (existingUser != null && existingPassword != null && existingUser == existingPassword)
+                    else if (existingUser.Username == enteredUser && existingPassword.Password == enteredPassword && existingUser == existingPassword)
                     {
                         Console.WriteLine("Login sucessful!");
                         verifiedUser = true;
