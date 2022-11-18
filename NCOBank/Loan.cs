@@ -11,25 +11,24 @@ namespace NCOBank
     {
         private static float maxLoan;
         private static float totalPersonal;
-        private static float totalSaving;
+        private static float loanInterest = 0.03f;
         private static float totalLoan = 5;
         private static float newLoan;
         public float NewLoan { get; set; }
         public float TotalPersonal { get; set; }
-        public float TotalSaving { get; set; }
+        public float LoanInterest { get; set; }
         public float TotalLoan
         {
             get
             {
                 return totalLoan;
             }
-
         }
         public Loan()
         {
             this.NewLoan = newLoan;
             this.TotalPersonal = totalPersonal;
-            this.TotalSaving = totalSaving;
+            this.LoanInterest = loanInterest;
         }
         public Loan(float newLoan, float answer)
         {
@@ -39,7 +38,7 @@ namespace NCOBank
 
         public static void Run(User user)
         {
-            Console.WriteLine("The current interest rate on our loan is 3%"); // flytta till checkloan metod?
+            Console.WriteLine("Current interest rate on our loan is {0:P2}", loanInterest); // flytta till checkloan metod?
             CheckMaxLoan(user);
             CheckLoan(user);
         }
@@ -82,20 +81,15 @@ namespace NCOBank
         }
         private static float CheckMaxLoan(User user)
         {
-            foreach (var item in AccountManager.accountList)
+
+            foreach (var item in AccountManager.accountList) // checks total balance on all accounts
             {
                 if (item.Value.Equals(user))
                 {
                     totalPersonal = item.Key.balance;
                 }
-            }
-            foreach (var item in AccountManager.accountList)
-            {
-                if (item.Value.Equals(user))
-                {
-                    totalSaving = item.Key.balance;
-                }
-            }
+            } 
+
             foreach (var item in AccountManager.loanList)
             {
                 if (item.Value.Equals(user))
@@ -103,7 +97,7 @@ namespace NCOBank
                     newLoan = item.Value.NumLoans;
                 }
             }
-            return maxLoan = (totalPersonal + totalSaving) * totalLoan - newLoan;
+            return maxLoan = totalPersonal * totalLoan - newLoan;
         }
     }
 }
