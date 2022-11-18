@@ -14,6 +14,21 @@ namespace NCOBank
 
         public static void Run()
         {
+            Console.WriteLine(" _   _   _____   _____     ");
+            Console.WriteLine("| \\ | | /  __ \\ |  _  |    ");
+            Console.WriteLine("|  \\| | | /  \\/ | | | |    ");
+            Console.WriteLine("| . ` | | |     | | | |     ");
+            Console.WriteLine("| |\\  | | \\__/\\ \\ \\_/ /    ");
+            Console.WriteLine("\\_| \\_/  \\____/  \\___/     ");
+            Console.WriteLine(" ");
+            Console.WriteLine("______                _    ");
+            Console.WriteLine("| ___ \\              | |   ");
+            Console.WriteLine("| |_/ /  __ _  _ __  | | __");
+            Console.WriteLine("| ___ \\ / _` || '_ \\ | |/ /");
+            Console.WriteLine("| |_/ /| (_| || | | ||   < ");
+            Console.WriteLine("\\____/  \\__,_||_| |_||_|\\_\\");
+            Console.WriteLine(" ");
+            
             Console.WriteLine("Welcome to the NCO Bank!");
             Console.WriteLine("Please select one of the following options:");
             Console.WriteLine("1. Login");
