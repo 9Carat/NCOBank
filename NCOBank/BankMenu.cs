@@ -79,12 +79,12 @@ namespace NCOBank
                     existingUser = userList.Find(u => u.Username.Contains(enteredUser));
                     existingPassword = userList.Find(u => u.Password.Contains(enteredPassword));
 
-                    if (existingUser == null || existingPassword == null || existingUser != existingPassword)
+                    if (existingUser.Username != enteredUser || existingPassword.Password != enteredPassword || existingUser != existingPassword)
                     {
                         Console.WriteLine("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
                         attempts++;
                     }
-                    else if (existingUser != null && existingPassword != null && existingUser == existingPassword)
+                    else if (existingUser.Username == enteredUser && existingPassword.Password == enteredPassword && existingUser == existingPassword)
                     {
                         Console.WriteLine("Login sucessful!");
                         verifiedUser = true;
