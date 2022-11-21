@@ -72,7 +72,10 @@ namespace NCOBank
         {
             float amount;
             User user = null;
+            Account accountNum = null;
             string username;
+            string accNum = null;
+            bool accountExist = false;
 
             Console.WriteLine("Select user:");
             username = Console.ReadLine();
@@ -113,24 +116,25 @@ namespace NCOBank
                     }
                 }
                 Console.WriteLine("Select account:");
-                string accNum = Console.ReadLine();
+                accNum = Console.ReadLine();
                 foreach (var item in AccountManager.accountList)
                 {
-                    if (accNum == item.Key.accountNum)
+                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
                     {
-                        break;
+                        accountNum = item.Key;
+                        accountExist = true;
                     }
-                    else
-                    {
-                        Console.WriteLine("the account you typed in do not exist, please try again: ");
-                        Console.WriteLine("Press any key to continue");
-                        Console.ReadKey();
-                        Console.Clear();
-                        SetBalance();
-                    }
+   
                 }
-
-                Console.WriteLine("Select balance:");
+                if (!accountExist)
+                {
+                    Console.WriteLine("the account you typed in do not exist, please try again: ");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    Console.Clear();
+                    SetBalance();
+                }
+                Console.WriteLine("How much do you want to transfer?: ");
                 try
                 {
                     amount = float.Parse(Console.ReadLine());
@@ -156,17 +160,7 @@ namespace NCOBank
                     SetBalance();
                     throw;
                 }
-                
 
-                foreach (var item in AccountManager.accountList)
-                {
-                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
-                    {
-                        item.Key.balance = amount;
-                        AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"{amount} received - {DateTime.Now.ToString("g")}"));
-                    }
-                }
-               
                 Console.WriteLine("Balance set. Press enter to continue.");
                 Console.ReadKey();
                 Console.Clear();
@@ -176,12 +170,12 @@ namespace NCOBank
         }
         public static void UppdateExchangeRate()
         {
-            float exchangeRate;
+            float exchangeRate = 0;
             string currency = null;
             Console.WriteLine("USD, EUR, DKK");
             Console.WriteLine("Type the name of the currency you want to uppdate: ");
             currency = Console.ReadLine();
-            if (currency == "USD" || currency == "usd"|| currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
+            if (currency == "USD" || currency == "usd" || currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
             {
                 Console.WriteLine("Currency chosen: ");
             }
