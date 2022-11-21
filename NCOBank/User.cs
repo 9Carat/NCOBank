@@ -22,7 +22,7 @@ namespace NCOBank
             }
             set
             {
-                _username = value;
+                _username = value;      
             }
         }
         public string Password

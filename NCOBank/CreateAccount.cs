@@ -87,6 +87,7 @@ namespace NCOBank
                     accNum = item.Key.accountNum;
                 }
             }
+
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
             Console.WriteLine($"Personal account {accNum} successfully created. Press enter to continue.");
             Console.ReadLine();

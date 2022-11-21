@@ -10,27 +10,37 @@ namespace NCOBank
     {
         public static void Run(User user)
         {
-            Console.WriteLine("Please select one of the following options:");
-            Console.WriteLine("1. Display your accounts");
-            Console.WriteLine("2. Show account history");
-            Console.WriteLine("0. Previous menu ");
-            string selection = Console.ReadLine();
-
-            switch (selection)
+            string selection;
+            do
             {
-                case "1":
-                    Console.Clear();  
-                    Display(user);                   
-                    break;
-                case "2":
-                    Console.Clear();
-                    DisplayHistory(user);
-                    break;
-                case "0":
-                    Console.Clear();
-                    AccountManager.Run(user);
-                    break;
-            }
+                Console.WriteLine("Please select one of the following options:");
+                Console.WriteLine("1. Display your accounts"); // Same method for both options?
+                Console.WriteLine("2. Show account history");
+                Console.WriteLine("0. Previous menu ");
+                selection = Console.ReadLine();
+
+                switch (selection)
+                {
+                    case "1":
+                        Console.Clear();
+                        Display(user);
+                        break;
+                    case "2":
+                        Console.Clear();
+                        DisplayHistory(user);
+                        break;
+                    case "0":
+                        Console.Clear();
+                        AccountManager.Run(user);
+                        break;
+                    default:
+                        Console.WriteLine("Please input your choice using the correct number. Press enter to continue");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+                }
+            } while (selection != "0");
+            
         }
         public static void Display(User user)
         {
@@ -59,6 +69,24 @@ namespace NCOBank
         }
         public static void DisplayHistory(User user)
         {
+            Console.WriteLine("You currently have the following accounts:");
+
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Value.Equals(user) && item.Key.accType == "personal")
+                {
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                }
+                else if (item.Value.Equals(user) && item.Key.accType == "savings")
+                {
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                }
+                else if (item.Value.Equals(user) && item.Key.accType == "currency")
+                {
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                }
+            }
+
             Console.WriteLine("Which account do you want show the history for?");
             string account = Console.ReadLine();
 
