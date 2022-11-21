@@ -148,7 +148,29 @@ namespace NCOBank
             bool accountRecieveExist = false;
             bool accountSendExist = false;
             bool a = true;
+            try
+            {
+                if (!AccountManager.ExchangeRate.ContainsKey("USD"))
+                {
+                    AccountManager.ExchangeRate.Add("USD", 0.096f);
+                }
+                else if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
+                {
+                    AccountManager.ExchangeRate.Add("EUR", 0.093f);
+                }
+                else if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
+                {
+                    AccountManager.ExchangeRate.Add("DKK", 0.069f);
+                }
+            }
+            catch (Exception)
+            {
+                AccountManager.ExchangeRate.Remove("currency");
+                throw;
+            }
+    
 
+            
             foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
@@ -172,6 +194,7 @@ namespace NCOBank
             try
             {
                 amount = float.Parse(Console.ReadLine());
+
             }
             catch (Exception)
             {
@@ -182,11 +205,10 @@ namespace NCOBank
                 TransferForeignCurrency(user);
                 throw;
             }
-           
 
             foreach (var item in AccountManager.accountList)
             {
-                if (item.Value.Equals(user) && item.Key.accountNum == accountSend)
+                if (item.Value.Equals(user) && item.Key.accountNum == accountSend && item.Key.balance > amount)
                 {
                     accSend = item.Key;
                     accountSendExist = true;
@@ -218,70 +240,28 @@ namespace NCOBank
                 } 
 
             }
-
-
             if (accountSendExist && accountRecieveExist)
             {
-                if (accRecieve.currency == "USD")
+                if (accRecieve.currency == "USD" && accSend.balance > 0)
                 {
-                    try
-                    {
-                        accSend.balance -= amount;
-                        accRecieve.balance += amount * AccountManager.ExchangeRate["USD"];
-
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Admin hasn't set the value for USD yet, please try again later");
-                        Console.WriteLine("Press any key to go back to menu: ");
-                        Console.ReadKey();
-                        Console.Clear();
-                        BankMenu.Run();
-                        throw;
-                    }
-                    
+                    accSend.balance -= amount;
+                    accRecieve.balance += amount * AccountManager.ExchangeRate["USD"];
                 }
                 else if (accRecieve.currency == "EUR")
                 {
-                    try
-                    {
-                        accSend.balance -= amount;
-                        accRecieve.balance += amount * AccountManager.ExchangeRate["EUR"];
-
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Admin hasn't set the value for EUR yet, please try again later");
-                        Console.WriteLine("Press any key to go back to menu: ");
-                        Console.ReadKey();
-                        Console.Clear();
-                        BankMenu.Run();
-                        throw;
-                    }
-                    
+                    accSend.balance -= amount;
+                    accRecieve.balance += amount * AccountManager.ExchangeRate["EUR"];
                 }
                 else if (accRecieve.currency == "DKK")
                 {                    
-                    try
-                    {
-                        accSend.balance -= amount;
-                        accRecieve.balance += amount * AccountManager.ExchangeRate["DKK"];
+                    accSend.balance -= amount;
+                    accRecieve.balance += amount * AccountManager.ExchangeRate["DKK"];
 
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Admin hasn't set the value for DKK yet, please try again later");
-                        Console.WriteLine("Press any key to go back to menu: ");
-                        Console.ReadKey();
-                        Console.Clear();
-                        BankMenu.Run();
-                        throw;
-                    }
                 }
             }
             else
             {
-                Console.WriteLine("one or both of the accounts was not found, try again");
+                Console.WriteLine("one or both of the accounts was not found or did not have enough coverage, try again");
                 Console.WriteLine("1: for restarting the transfer \n2: for returning to bankmenu ");
                 do
                 {
@@ -303,11 +283,12 @@ namespace NCOBank
                 
 
             }
+            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accSend.accountNum, $"Transfered amount: {amount} to account: {accRecieve.accountNum} - {DateTime.Now.ToString("g")}"));
+            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accRecieve.accountNum, $"Recieved amount: {amount} from account: {accSend.accountNum} - {DateTime.Now.ToString("g")}"));
             Console.WriteLine("Transfer complete");
             Console.ReadLine();
             Console.Clear();
             Run(user);
-
         }
     }
 }
