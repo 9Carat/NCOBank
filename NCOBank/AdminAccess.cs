@@ -160,6 +160,14 @@ namespace NCOBank
                     SetBalance();
                     throw;
                 }
+                foreach (var item in AccountManager.accountList)
+                {
+                    if (item.Value.Equals(user) && item.Key.accountNum == accNum)
+                    {
+                        item.Key.balance = amount;
+                        AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"{amount} received - {DateTime.Now.ToString("g")}"));
+                    }
+                }
 
                 Console.WriteLine("Balance set. Press enter to continue.");
                 Console.ReadKey();
