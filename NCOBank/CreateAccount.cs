@@ -78,7 +78,7 @@ namespace NCOBank
 
             Console.WriteLine("USD, EUR, DKK");
             Console.WriteLine("what currency would you like to create your account in");
-            Currency = Console.ReadLine();
+            Currency = Console.ReadLine().ToUpper();
             AccountManager.accountList.Add(new CurrencyAccount(Currency), user); // stores the account in the dictionary
             foreach (var item in AccountManager.accountList)
             {
