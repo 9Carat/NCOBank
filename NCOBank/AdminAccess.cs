@@ -203,18 +203,17 @@ namespace NCOBank
 
             try
             {
-                float.TryParse(Console.ReadLine(), out exchangeRate);
+                exchangeRate = float.Parse(Console.ReadLine());
             }
             catch (Exception)
             {
                 Console.WriteLine("when setting value you can only use numbers 0-9.");
                 Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
                 Console.Clear();
                 UppdateExchangeRate();
                 throw;
             }
-
-            
             AccountManager.ExchangeRate.Add(currency, exchangeRate);
             Console.WriteLine("Currency set, press any key to continue");
             Console.ReadKey();
