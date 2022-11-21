@@ -180,12 +180,16 @@ namespace NCOBank
         {
             float exchangeRate = 0;
             string currency = null;
+            bool currencyExist = false;
+
+            
             Console.WriteLine("USD, EUR, DKK");
             Console.WriteLine("Type the name of the currency you want to uppdate: ");
             currency = Console.ReadLine();
             if (currency == "USD" || currency == "usd" || currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
             {
                 Console.WriteLine("Currency chosen: ");
+                currencyExist = true;
             }
             else
             {
@@ -193,9 +197,10 @@ namespace NCOBank
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
                 Console.Clear();
-                UppdateExchangeRate();
+                Run();
             }
             Console.WriteLine("Type the value of the currency you want to uppdate in this format 0,000: ");
+
             try
             {
                 float.TryParse(Console.ReadLine(), out exchangeRate);
@@ -208,6 +213,8 @@ namespace NCOBank
                 UppdateExchangeRate();
                 throw;
             }
+
+            
             AccountManager.ExchangeRate.Add(currency, exchangeRate);
             Console.WriteLine("Currency set, press any key to continue");
             Console.ReadKey();
