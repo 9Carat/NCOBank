@@ -182,7 +182,20 @@ namespace NCOBank
             string currency = null;
             bool currencyExist = false;
 
-            
+            if (AccountManager.ExchangeRate.ContainsKey("USD"))
+            {
+                AccountManager.ExchangeRate.Remove("USD");
+            }
+            else if (AccountManager.ExchangeRate.ContainsKey("EUR"))
+            {
+                AccountManager.ExchangeRate.Remove("EUR");
+            }
+            else if (AccountManager.ExchangeRate.ContainsKey("DKK"))
+            {
+                AccountManager.ExchangeRate.Remove("DKK");
+            }
+
+
             Console.WriteLine("USD, EUR, DKK");
             Console.WriteLine("Type the name of the currency you want to uppdate: ");
             currency = Console.ReadLine();

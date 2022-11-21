@@ -148,13 +148,29 @@ namespace NCOBank
             bool accountRecieveExist = false;
             bool accountSendExist = false;
             bool a = true;
-
-            if (!AccountManager.ExchangeRate.ContainsKey("USD") || !AccountManager.ExchangeRate.ContainsKey("EUR") || !AccountManager.ExchangeRate.ContainsKey("DKK"))
+            try
             {
-                AccountManager.ExchangeRate.Add("USD", 0.096f);
-                AccountManager.ExchangeRate.Add("EUR", 0.093f);
-                AccountManager.ExchangeRate.Add("DKK", 0.069f);
+                if (!AccountManager.ExchangeRate.ContainsKey("USD"))
+                {
+                    AccountManager.ExchangeRate.Add("USD", 0.096f);
+                }
+                else if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
+                {
+                    AccountManager.ExchangeRate.Add("EUR", 0.093f);
+                }
+                else if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
+                {
+                    AccountManager.ExchangeRate.Add("DKK", 0.069f);
+                }
             }
+            catch (Exception)
+            {
+                AccountManager.ExchangeRate.Remove("currency");
+                throw;
+            }
+    
+
+            
             foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
