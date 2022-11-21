@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,28 +11,40 @@ namespace NCOBank
     {
         public static void Run()
         {
+            string selection = null;
             Console.WriteLine("1. Add user");
             Console.WriteLine("2. Unlock user");
-            Console.WriteLine("3. Set account balance");
+            Console.WriteLine("3. Set account balance"); 
+            Console.WriteLine("4. Uppdate exchangerate on foreign currency");
             Console.WriteLine("0. Log out");
-            string selection = Console.ReadLine();
 
-            switch (selection)
+            
+            do
             {
-                case "1":
-                    AddUser();
-                    break;
-                case "2":
-                    UnlockUser();
-                    break;
-                case "3":
-                    SetBalance();
-                    break;
-                case "0":
-                    Console.Clear();
-                    BankMenu.Run();
-                    break;
-            }
+                selection = Console.ReadLine();
+                switch (selection)
+                {
+                    case "1":
+                        AddUser();
+                        break;
+                    case "2":
+                        UnlockUser();
+                        break;
+                    case "3":
+                        SetBalance();
+                        break;
+                    case "4":
+                        UppdateExchangeRate();
+                        break;
+                    case "0":
+                        Console.Clear();
+                        BankMenu.Run();
+                        break;
+                }
+                Console.WriteLine("You have to type the specific key");
+
+            } while (true);
+            
         }
         public static void AddUser()
         {
@@ -57,11 +70,14 @@ namespace NCOBank
         }
         public static void SetBalance()
         {
-            Console.WriteLine("Select user:");
-            string username = Console.ReadLine();
+            float amount;
             User user = null;
+            string username;
 
-            foreach(var item in BankMenu.userList)
+            Console.WriteLine("Select user:");
+            username = Console.ReadLine();
+
+            foreach (var item in BankMenu.userList)
             {
                 if(item.Username == username)
                 {
@@ -96,11 +112,51 @@ namespace NCOBank
                         Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                     }
                 }
-
                 Console.WriteLine("Select account:");
                 string accNum = Console.ReadLine();
+                foreach (var item in AccountManager.accountList)
+                {
+                    if (accNum == item.Key.accountNum)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("the account you typed in do not exist, please try again: ");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        Console.Clear();
+                        SetBalance();
+                    }
+                }
+
                 Console.WriteLine("Select balance:");
-                float amount = float.Parse(Console.ReadLine());
+                try
+                {
+                    amount = float.Parse(Console.ReadLine());
+                    if (amount > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("you cant set 0 or a negaative balance");
+                        Console.WriteLine("press any ket to continue");
+                        Console.ReadKey();
+                        Console.Clear();
+                        SetBalance();
+                    }
+                    
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("You have to type in the amount with numbers 0-9 only");
+                    Console.WriteLine("Restarting set balance function: \nPress any key to continue ");
+                    Console.ReadKey();
+                    SetBalance();
+                    throw;
+                }
+                
 
                 foreach (var item in AccountManager.accountList)
                 {
@@ -112,10 +168,49 @@ namespace NCOBank
                 }
                
                 Console.WriteLine("Balance set. Press enter to continue.");
-                Console.ReadLine();
+                Console.ReadKey();
                 Console.Clear();
                 Run();
             }
+           
+        }
+        public static void UppdateExchangeRate()
+        {
+            float exchangeRate;
+            string currency = null;
+            Console.WriteLine("USD, EUR, DKK");
+            Console.WriteLine("Type the name of the currency you want to uppdate: ");
+            currency = Console.ReadLine();
+            if (currency == "USD" || currency == "usd"|| currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
+            {
+                Console.WriteLine("Currency chosen: ");
+            }
+            else
+            {
+                Console.WriteLine("You chose a non-viable currency. Try again: ");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                Console.Clear();
+                UppdateExchangeRate();
+            }
+            Console.WriteLine("Type the value of the currency you want to uppdate in this format 0,000: ");
+            try
+            {
+                float.TryParse(Console.ReadLine(), out exchangeRate);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("when setting value you can only use numbers 0-9.");
+                Console.WriteLine("Press any key to continue");
+                Console.Clear();
+                UppdateExchangeRate();
+                throw;
+            }
+            AccountManager.ExchangeRate.Add(currency, exchangeRate);
+            Console.WriteLine("Currency set, press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            Run();
         }
     }
 }

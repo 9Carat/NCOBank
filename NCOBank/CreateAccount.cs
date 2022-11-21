@@ -15,6 +15,7 @@ namespace NCOBank
             Console.WriteLine("Please select one of the following options:");
             Console.WriteLine("1. Create a personal account");
             Console.WriteLine("2. Create a savings account" + " - " + SavingsAccount.DisplayInterest());
+            Console.WriteLine("3. Create a new currency account");
             Console.WriteLine("3. Previous menu");
             string selection = Console.ReadLine();
 
@@ -27,8 +28,12 @@ namespace NCOBank
                 case "2":
                     Console.Clear();
                     CreateSavingsAcc(user);
-                    break;
+                    break; 
                 case "3":
+                    Console.Clear();
+                    CreateForeignCurrencyAcc(user);
+                    break;
+                case "4":
                     Console.Clear();
                     AccountManager.Run(user);
                     break;
@@ -68,74 +73,27 @@ namespace NCOBank
         }
         public static void CreateForeignCurrencyAcc(User user)
         {
-            float usd = 0.096f;
-            float eur = 0.093f;
-            float dkk = 0.069f;
-            float newCurrency = 0;
-            float oldCurrency;
-            string accountName;
+
             string Currency;
-            bool a = true;
 
-            Console.WriteLine("Choose an account number (10 digits)");
-            accountName = Console.ReadLine();
-            Console.WriteLine("Choose your balance in sek");
-
-            do
+            Console.WriteLine("USD, EUR, DKK");
+            Console.WriteLine("what currency would you like to create your account in");
+            Currency = Console.ReadLine();
+            AccountManager.accountList.Add(new CurrencyAccount(Currency), user); // stores the account in the dictionary
+            foreach (var item in AccountManager.accountList)
             {
-                oldCurrency = float.Parse(Console.ReadLine());
-                if (oldCurrency > 0)
+                if (item.Value.Equals(user))
                 {
-                    a = false;
-                    break;
+                    accNum = item.Key.accountNum;
                 }
-                else if (oldCurrency <= 0)
-                {
-                    Console.WriteLine("You cant add a negative number, re-enter the amount you'd like to add");
-
-                }
-
-            } while (a = true);
-
-            Console.WriteLine("in which currency would you like to create your bank account in?");
-            string[] CurrencyArray = { "USD ", "EUR ", "DKK " };
-            foreach (var item in CurrencyArray)
-            {
-                Console.WriteLine(item.ToString());
             }
-            bool b;
-            do
-            {
-                Currency = Console.ReadLine();
-                if (Currency.Equals("USD"))
-                {
-                    newCurrency = oldCurrency * usd;
-                    b = true;
-                }
-                else if (Currency.Equals("EUR"))
-                {
-                    newCurrency = oldCurrency * eur;
-                    b = true;
-                }
-                else if (Currency.Equals("DKK"))
-                {
-                    newCurrency = oldCurrency * dkk;
-                    b = true;
-                }
-                else if (Currency != "USD" || Currency != "EUR" || Currency != "DKK")
-                {
-                    Console.WriteLine("You need to write in correct currency");
-                }
 
-            } while (b = false);
-
-            accountName = accountName + " " + Currency;
-
-            AccountManager.accountList.Add(new CurrencyAccount(Currency), user);
-
-            Console.WriteLine("You have sucessfully created an account in a foreign value: press enter to continue");
-            Console.ReadKey();
+            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
+            Console.WriteLine($"Personal account {accNum} successfully created. Press enter to continue.");
+            Console.ReadLine();
             Console.Clear();
+
+           
         }
         public static string RndAccNum()
         {

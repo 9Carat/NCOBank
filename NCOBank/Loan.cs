@@ -88,7 +88,14 @@ namespace NCOBank
                 {
                     totalPersonal = item.Key.balance;
                 }
-            } 
+            }
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    totalSaving = item.Key.balance;
+                }
+            }
 
             foreach (var item in AccountManager.loanList)
             {
