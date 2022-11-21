@@ -52,8 +52,12 @@ namespace NCOBank
             string username = Console.ReadLine();
             Console.WriteLine("State password");
             string password = Console.ReadLine();
+            Console.WriteLine("State firstname:");
+            string firstName = Console.ReadLine().ToUpper();
+            Console.WriteLine("State lastname:");
+            string lastName = Console.ReadLine().ToUpper();
 
-            BankMenu.userList.Add(new User(username, password));
+            BankMenu.userList.Add(new User(username, password, firstName, lastName));
 
             Console.WriteLine("User successfully added. Press enter to continue");
             Console.ReadLine();

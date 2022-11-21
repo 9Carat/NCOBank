@@ -12,6 +12,8 @@ namespace NCOBank
         private string _username;
         private string _password;
         private string _userRole;
+        private string _firstName;
+        private string _lastName;
         public Dictionary<string, int> accountList;
         public float NumLoans { get; set; }
         public string Username
@@ -47,13 +49,37 @@ namespace NCOBank
                 _userRole = value;
             }
         }
+        public string FirstName 
+        {
+            get
+            {
+                return _firstName;
+            }
+            set
+            {
+                _firstName = value;
+            } 
+        }
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+            set
+            {
+                _lastName = value;
+            }
+        }
 
-        public User(string username, string password)
+        public User(string username, string password, string firstName, string lastName)
         {
             this.NumLoans = _numLoans;
-            _username = username;
-            _password = password;
-            _userRole = "user";
+            Username = username;
+            Password = password;
+            UserRole = "user";
+            FirstName = firstName;
+            LastName = lastName;
         }
     }
 }
