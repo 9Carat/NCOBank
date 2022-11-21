@@ -54,7 +54,7 @@ namespace NCOBank
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {SavingsAccount.CheckInterest(item.Key.balance)} ");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {

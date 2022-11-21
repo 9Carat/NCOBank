@@ -284,7 +284,7 @@ namespace NCOBank
 
             }
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accSend.accountNum, $"Transfered amount: {amount} to account: {accRecieve.accountNum} - {DateTime.Now.ToString("g")}"));
-            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accRecieve.accountNum, $"Recieved amount: {amount} from account: {accSend.accountNum} - {DateTime.Now.ToString("g")}"));
+            AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accRecieve.accountNum, $"Recieved amount: {amount} SEK from account: {accSend.accountNum} - {DateTime.Now.ToString("g")}"));
             Console.WriteLine("Transfer complete");
             Console.ReadLine();
             Console.Clear();

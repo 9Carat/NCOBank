@@ -20,7 +20,7 @@ namespace NCOBank
             string selection;
             do
             {
-                Console.WriteLine("Welcome \"user\". Please select an option to continue");
+                Console.WriteLine("Welcome {0}" + " " + "{1}. Please select an option to continue", user.FirstName, user.LastName);
                 Console.WriteLine("1. Create a personal, savings or currency account");
                 Console.WriteLine("2. View your current accounts and their balances");
                 Console.WriteLine("3. Transfer amount to other accounts");
