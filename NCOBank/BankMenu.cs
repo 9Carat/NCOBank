@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,27 +18,13 @@ namespace NCOBank
             string selection;
             do
             {
-                Console.WriteLine(" _   _   _____   _____     ");
-                Console.WriteLine("| \\ | | /  __ \\ |  _  |    ");
-                Console.WriteLine("|  \\| | | /  \\/ | | | |    ");
-                Console.WriteLine("| . ` | | |     | | | |     ");
-                Console.WriteLine("| |\\  | | \\__/\\ \\ \\_/ /    ");
-                Console.WriteLine("\\_| \\_/  \\____/  \\___/     ");
-                Console.WriteLine(" ");
-                Console.WriteLine("______                _    ");
-                Console.WriteLine("| ___ \\              | |   ");
-                Console.WriteLine("| |_/ /  __ _  _ __  | | __");
-                Console.WriteLine("| ___ \\ / _` || '_ \\ | |/ /");
-                Console.WriteLine("| |_/ /| (_| || | | ||   < ");
-                Console.WriteLine("\\____/  \\__,_||_| |_||_|\\_\\");
-                Console.WriteLine(" ");
-
-                Console.WriteLine("Welcome to the NCO Bank!");
-                Console.WriteLine("Please select one of the following options:");
-                Console.WriteLine("1. Login");
-                Console.WriteLine("2. Create account");
-                Console.WriteLine("3. Admin access (admin only)");
-                Console.WriteLine("4. Exit");
+                TextMessages.BankLogo();
+                TextMessages.YellowMessageColor("Welcome to the NCO Bank!");
+                TextMessages.YellowMessageColor("Please select one of the following options:");
+                TextMessages.YellowMessageColor("1. Login");
+                TextMessages.YellowMessageColor("2. Create account");
+                TextMessages.YellowMessageColor("3. Admin access (admin only)");
+                TextMessages.YellowMessageColor("4. Exit");
                 selection = Console.ReadLine();
 
                 switch (selection)
@@ -59,7 +46,7 @@ namespace NCOBank
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please input your choice using only numbers");
+                        TextMessages.MessageColor("Please input your choice using only numbers", false);
                         Console.ReadLine();
                         Console.Clear();
                         break;
@@ -88,19 +75,19 @@ namespace NCOBank
 
                     if (existingUser == null || existingPassword == null)
                     {
-                        Console.WriteLine("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
+                        TextMessages.RedMessageColor("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
                         attempts++;
                     }
                     else
                     {
                         if (existingUser.Username != enteredUser || existingPassword.Password != enteredPassword || existingUser != existingPassword)
                         {
-                            Console.WriteLine("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
+                            TextMessages.RedMessageColor("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
                             attempts++;
                         }
                         else if (existingUser.Username == enteredUser && existingPassword.Password == enteredPassword && existingUser == existingPassword)
                         {
-                            Console.WriteLine("Login sucessful!");
+                            TextMessages.MessageColor("Login sucessful!");
                             verifiedUser = true;
                             break;
                         }
@@ -112,7 +99,7 @@ namespace NCOBank
             if (verifiedUser == false)
             {
                 lockedOut = true;
-                Console.WriteLine("You've been locked out! Please contact an admin. Press enter to continue");
+                TextMessages.MessageColor("You've been locked out! Please contact an admin. Press enter to continue", false);
                 Console.ReadLine();
                 Console.Clear();
                 Run();
@@ -141,25 +128,20 @@ namespace NCOBank
 
             if(existingUser == null || existingPassword == null)
             {
-                Console.WriteLine("Username or password is incorrect. Press enter to continue.");
-                Console.ReadLine();
-                Console.Clear();
-                Run();
+                TextMessages.MessageColor("Username or password is incorrect.", false);
+                TextMessages.PressEnter();
             }
             else
             {
                 if (existingUser.Username != username || existingPassword.Password != password || existingUser != existingPassword)
                 {
-                    Console.WriteLine("Username or password is incorrect. Press enter to continue.");
-                    Console.ReadLine();
-                    Console.Clear();
-                    Run();
+                    TextMessages.MessageColor("Username or password is incorrect.");
+                    TextMessages.PressEnter();
                 }
                 else if (existingUser.Username == username && existingPassword.Password == password && existingUser == existingPassword)
                 {
-                    Console.WriteLine("Login sucessful! Press enter to continue");
-                    Console.ReadLine();
-                    Console.Clear();
+                    TextMessages.MessageColor("Login sucessful!");
+                    TextMessages.PressEnter();
                     AdminAccess.Run();
                 }
             }
@@ -189,9 +171,9 @@ namespace NCOBank
             do
             {
                 newPassword = Console.ReadLine();
-                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Z][A-Za-z]{6}")) // password has to have one digit, one uppercase and at least eight characters
+                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Za-z]{6}")) // password has to have one digit, one uppercase and at least eight characters
                 {
-                    Console.WriteLine("Enter password with one number, one or more uppercase characters and at least eight characters long");
+                    TextMessages.MessageColor("Enter password with one number, one or more uppercase characters and at least eight characters long", false);
                     ok = false;
                 }
                 else
@@ -208,11 +190,8 @@ namespace NCOBank
 
             userList.Add(new User(newUsername, newPassword, firstName, lastName));
 
-            Console.WriteLine("User successfully created!");
-            Console.WriteLine("Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
-            Run();
+            TextMessages.MessageColor("User successfully created!");
+            TextMessages.PressEnter();
         }
     }
 }
