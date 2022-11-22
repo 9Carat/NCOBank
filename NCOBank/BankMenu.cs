@@ -166,14 +166,14 @@ namespace NCOBank
 
             } while (ok == false);
 
-            Console.WriteLine("Please enter your new password.\nIt needs one number, one or more uppercase characters and at least eight characters long."); // skriva om text
+            Console.WriteLine("Please enter your new password.\nIt has to have a minimum of 8 in lenght and requiers at least one digit, one upper case and one lower case letter."); // skriva om text
             string newPassword;
             do
             {
                 newPassword = Console.ReadLine();
-                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Za-z]{6}")) // password has to have one digit, one uppercase and at least eight characters
+                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"^(?=\D*\d)(?=.*?[A-Za-z]).{8,}$")) // password has to have one digit, one uppercase, one lowercase and at least eight characters
                 {
-                    TextMessages.MessageColor("Enter password with one number, one or more uppercase characters and at least eight characters long", false);
+                    TextMessages.MessageColor("Enter password with a minimum of 8 in lenght, at least one digit, one upper case and one lower case letter.", false);
                     ok = false;
                 }
                 else
