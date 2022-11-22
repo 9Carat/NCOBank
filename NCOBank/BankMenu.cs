@@ -153,12 +153,12 @@ namespace NCOBank
                 
             } while (ok == false);
 
-            Console.WriteLine("Please enter your new password.\nIt needs one number, one or more uppercase characters and at least ten characters long."); // skriva om text
+            Console.WriteLine("Please enter your new password.\nIt needs one number, one or more uppercase characters and at least eight characters long."); // skriva om text
             string newPassword;
             do
             {
                 newPassword = Console.ReadLine();
-                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Z][A-Za-z]{8}"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Z][A-Za-z]{6}"))
                 {
                     Console.WriteLine("Enter password as BLAlal");
                     ok = false;
