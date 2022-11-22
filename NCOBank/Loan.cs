@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,10 @@ namespace NCOBank
             if (answer > maxLoan)
             {
                 Console.WriteLine("The amount you are asking for is too high");
+            }
+            else if (answer <= 0)
+            {
+                Console.WriteLine("The amount needs to be greater than 0");
             }
             else
             {
