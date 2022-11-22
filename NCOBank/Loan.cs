@@ -89,7 +89,7 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user))
                 {
-                    totalPersonal = item.Key.balance;
+                    totalPersonal += item.Key.balance;
                 }
             }
 
@@ -105,7 +105,7 @@ namespace NCOBank
         public static string CheckInterest(float loan)
         {
             float interest = loan * loanInterest;
-            return $"The yearly interest rate on your loan will be: {interest}";   
+            return $"The yearly interest rate on your loan is: {interest}";   
         }
     }
 }

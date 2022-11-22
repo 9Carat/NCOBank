@@ -66,7 +66,7 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user))
                 {
-                    Console.WriteLine($"Loan account - Balance: {item.Value.NumLoans} - Interest: {item.Key.LoanInterest} "); // Add correct method
+                    Console.WriteLine($"Loan account - Balance: {item.Value.NumLoans} - " + Loan.CheckInterest(item.Value.NumLoans)); // Add correct method
                 }
             }
 

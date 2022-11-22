@@ -191,7 +191,7 @@ namespace NCOBank
                 newPassword = Console.ReadLine();
                 if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Z][A-Za-z]{6}")) // password has to have one digit, one uppercase and at least eight characters
                 {
-                    Console.WriteLine("Enter password as BLAlal");
+                    Console.WriteLine("Enter password with one number, one or more uppercase characters and at least eight characters long");
                     ok = false;
                 }
                 else
