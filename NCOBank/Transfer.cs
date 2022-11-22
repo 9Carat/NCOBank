@@ -34,7 +34,7 @@ namespace NCOBank
                         AccountManager.Run(user);
                         break;
                 }
-                Console.WriteLine("You have to type the specific key");
+                Console.WriteLine("Please enter a valid option");
             } while (true);
             
         }
@@ -66,20 +66,18 @@ namespace NCOBank
             accRecieve = Console.ReadLine();
             try
             {
-               
                 Console.WriteLine("Select the amount you want to transfer");
                 amount = float.Parse(Console.ReadLine());
             }
             catch (Exception)
             {
-                Console.WriteLine("When sending amount of money you can only use numbers 0-9. If you use letters it will break");
+                Console.WriteLine("Please enter numbers only");
                 Console.WriteLine("Restarting the transfer \nPress a key to continue");
                 Console.ReadLine();
                 Console.Clear();
                 TransferAmount(user);
                 throw;
             }
-            
 
             foreach (var item in AccountManager.accountList) 
             {
@@ -147,7 +145,6 @@ namespace NCOBank
             Account accRecieve = null;
             bool accountRecieveExist = false;
             bool accountSendExist = false;
-            bool a = true;
             try
             {
                 if (!AccountManager.ExchangeRate.ContainsKey("USD"))
@@ -169,8 +166,6 @@ namespace NCOBank
                 throw;
             }
     
-
-            
             foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
@@ -186,11 +181,11 @@ namespace NCOBank
                     Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                 }
             }
-            Console.WriteLine("Which account would you send from? ");
+            Console.WriteLine("From which account would you like to send from? ");
             accountSend = Console.ReadLine();
-            Console.WriteLine("Which account do you want to send it to?");
+            Console.WriteLine("To which account woul you like to make the transfer to?");
             accountRecieve = Console.ReadLine();
-            Console.WriteLine("how much would you like to transfer? ");
+            Console.WriteLine("How much would you like to transfer? ");
             try
             {
                 amount = float.Parse(Console.ReadLine());
@@ -198,8 +193,8 @@ namespace NCOBank
             }
             catch (Exception)
             {
-                Console.WriteLine("When sending amount of money you can only use numbers 0-9. If you use letters it will break");
-                Console.WriteLine("Restarting the transfer \nPress a key to continue");
+                Console.WriteLine("Please enter numbers only");
+                Console.WriteLine("Restarting the transfer. \nPress a key to continue");
                 Console.ReadLine();
                 Console.Clear();
                 TransferForeignCurrency(user);
@@ -261,27 +256,25 @@ namespace NCOBank
             }
             else
             {
-                Console.WriteLine("one or both of the accounts was not found or did not have enough coverage, try again");
-                Console.WriteLine("1: for restarting the transfer \n2: for returning to bankmenu ");
+                Console.WriteLine("One or both of the accounts was not found or did not have enough coverage, please try again");
+                Console.WriteLine("Press 1 to restart the transfer. \nPress 2 for returning to main menu ");
                 do
                 {
                     string i = Console.ReadLine();
                     switch (i)
                     {
                         case "1":
-                            TransferForeignCurrency(user);
                             Console.Clear();
+                            TransferForeignCurrency(user);
                             break;
                         case "2":
-                            AccountManager.Run(user);
                             Console.Clear();
+                            AccountManager.Run(user);
                             break;
                     }
-                    Console.WriteLine("wrong key-input. Press 1 for transfer, 2 for bank-menu");
+                    Console.WriteLine("Incorrect input. Press 1 for transfer, 2 for Main menu");
 
                 } while (true);
-                
-
             }
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accSend.accountNum, $"Transfered amount: {amount} to account: {accRecieve.accountNum} - {DateTime.Now.ToString("g")}"));
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accRecieve.accountNum, $"Recieved amount: {amount} SEK from account: {accSend.accountNum} - {DateTime.Now.ToString("g")}"));
