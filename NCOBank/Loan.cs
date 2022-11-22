@@ -34,8 +34,6 @@ namespace NCOBank
         {
 
         }
-
-
         public static void Run(User user)
         {
             Console.WriteLine("Current interest rate on our loan is {0:P2}", loanInterest); // flytta till checkloan metod?
