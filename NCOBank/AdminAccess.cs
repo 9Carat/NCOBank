@@ -12,11 +12,11 @@ namespace NCOBank
         public static void Run()
         {
             string selection = null;
-            Console.WriteLine("1. Add user");
-            Console.WriteLine("2. Unlock user");
-            Console.WriteLine("3. Set account balance"); 
-            Console.WriteLine("4. Uppdate exchangerate on foreign currency");
-            Console.WriteLine("0. Log out");
+            TextMessages.YellowMessageColor("1. Add user");
+            TextMessages.YellowMessageColor("2. Unlock user");
+            TextMessages.YellowMessageColor("3. Set account balance");
+            TextMessages.YellowMessageColor("4. Uppdate exchangerate on foreign currency");
+            TextMessages.YellowMessageColor("0. Log out");
 
             
             do
@@ -41,35 +41,21 @@ namespace NCOBank
                         BankMenu.Run();
                         break;
                 }
-                Console.WriteLine("You have to type the specific key");
+                TextMessages.MessageColor("You have to type the specific key", false);
 
             } while (true);
             
         }
         public static void AddUser()
         {
-            Console.WriteLine("State username:");
-            string username = Console.ReadLine();
-            Console.WriteLine("State password");
-            string password = Console.ReadLine();
-            Console.WriteLine("State firstname:");
-            string firstName = Console.ReadLine().ToUpper();
-            Console.WriteLine("State lastname:");
-            string lastName = Console.ReadLine().ToUpper();
-
-            BankMenu.userList.Add(new User(username, password, firstName, lastName));
-
-            Console.WriteLine("User successfully added. Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
+            BankMenu.CreateAccount();
             Run();
         }
         public static void UnlockUser()
         {
             BankMenu.lockedOut = false;
-            Console.WriteLine("Login lock removed. Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
+            TextMessages.MessageColor("Login lock removed.");
+            TextMessages.PressEnter();
             Run();
         }
         public static void SetBalance()
@@ -81,7 +67,7 @@ namespace NCOBank
             string accNum = null;
             bool accountExist = false;
 
-            Console.WriteLine("Select user:");
+            TextMessages.YellowMessageColor("Select user:");
             username = Console.ReadLine();
 
             foreach (var item in BankMenu.userList)
@@ -95,31 +81,31 @@ namespace NCOBank
 
             if(user == null)
             {
-                Console.WriteLine("User not found. Please try again");
+                TextMessages.MessageColor("User not found. Please try again", false);
                 Console.ReadLine();
                 Console.Clear();
                 Run();
             }
             else
             {
-                Console.WriteLine("User has the following accounts:");
+                TextMessages.YellowMessageColor("User has the following accounts:");
 
                 foreach (var item in AccountManager.accountList)
                 {
                     if (item.Value.Equals(user) && item.Key.accType == "personal")
                     {
-                        Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                        TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                     }
                     else if (item.Value.Equals(user) && item.Key.accType == "savings")
                     {
-                        Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                        TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
                     }
                     else if (item.Value.Equals(user) && item.Key.accType == "currency")
                     {
-                        Console.WriteLine($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                        TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                     }
                 }
-                Console.WriteLine("Select account:");
+                TextMessages.YellowMessageColor("Select account:");
                 accNum = Console.ReadLine();
                 foreach (var item in AccountManager.accountList)
                 {
@@ -132,13 +118,11 @@ namespace NCOBank
                 }
                 if (!accountExist)
                 {
-                    Console.WriteLine("the account you typed in do not exist, please try again: ");
-                    Console.WriteLine("Press any key to continue");
-                    Console.ReadKey();
-                    Console.Clear();
+                    TextMessages.MessageColor("the account you typed in do not exist, please try again: ", false);
+                    TextMessages.PressEnter();
                     SetBalance();
                 }
-                Console.WriteLine("How much do you want to transfer?: ");
+                TextMessages.YellowMessageColor("How much do you want to transfer?: ");
                 try
                 {
                     amount = float.Parse(Console.ReadLine());
@@ -148,19 +132,16 @@ namespace NCOBank
                     }
                     else
                     {
-                        Console.WriteLine("you cant set 0 or a negaative balance");
-                        Console.WriteLine("press any ket to continue");
-                        Console.ReadKey();
-                        Console.Clear();
+                        TextMessages.MessageColor("You cant set 0 or a negative balance", false);
+                        TextMessages.PressEnter();
                         SetBalance();
                     }
                     
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("You have to type in the amount with numbers 0-9 only");
-                    Console.WriteLine("Restarting set balance function: \nPress any key to continue ");
-                    Console.ReadKey();
+                    TextMessages.MessageColor("You have to type in the amount with numbers 0-9 only", false);
+                    TextMessages.PressEnter();
                     SetBalance();
                     throw;
                 }
@@ -168,14 +149,13 @@ namespace NCOBank
                 {
                     if (item.Value.Equals(user) && item.Key.accountNum == accNum)
                     {
-                        item.Key.balance = amount;
+                        item.Key.balance += amount;
                         AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"{amount} received - {DateTime.Now.ToString("g")}"));
                     }
                 }
 
-                Console.WriteLine("Balance set. Press enter to continue.");
-                Console.ReadKey();
-                Console.Clear();
+                TextMessages.MessageColor("Balance set");
+                TextMessages.PressEnter();
                 Run();
             }
            
@@ -200,23 +180,21 @@ namespace NCOBank
             }
 
 
-            Console.WriteLine("USD, EUR, DKK");
-            Console.WriteLine("Type the name of the currency you want to uppdate: ");
+            TextMessages.YellowMessageColor("USD, EUR, DKK");
+            TextMessages.YellowMessageColor("Type the name of the currency you want to uppdate: ");
             currency = Console.ReadLine();
             if (currency == "USD" || currency == "usd" || currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
             {
-                Console.WriteLine("Currency chosen: ");
+                TextMessages.MessageColor("Currency chosen: ");
                 currencyExist = true;
             }
             else
             {
-                Console.WriteLine("You chose a non-viable currency. Try again: ");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-                Console.Clear();
+                TextMessages.MessageColor("You chose a non-viable currency. Try again: ", false);
+                TextMessages.PressEnter();
                 Run();
             }
-            Console.WriteLine("Type the value of the currency you want to uppdate in this format 0,000: ");
+            TextMessages.YellowMessageColor("Type the value of the currency you want to uppdate in this format 0,000: ");
 
             try
             {
@@ -224,17 +202,14 @@ namespace NCOBank
             }
             catch (Exception)
             {
-                Console.WriteLine("when setting value you can only use numbers 0-9.");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-                Console.Clear();
+                TextMessages.MessageColor("When setting value you can only use numbers 0-9.", false);
+                TextMessages.PressEnter();
                 UppdateExchangeRate();
                 throw;
             }
             AccountManager.ExchangeRate.Add(currency, exchangeRate);
-            Console.WriteLine("Currency set, press any key to continue");
-            Console.ReadKey();
-            Console.Clear();
+            TextMessages.MessageColor("Currency set");
+            TextMessages.PressEnter();
             Run();
         }
     }

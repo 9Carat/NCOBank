@@ -42,7 +42,7 @@ namespace NCOBank
                         AdminLogin();
                         break;
                     case "4":
-                        Console.WriteLine("Welcome back!");
+                        TextMessages.YellowMessageColor("Welcome back!");
                         Environment.Exit(0);
                         break;
                     default:
@@ -64,10 +64,10 @@ namespace NCOBank
             {
                 do
                 {
-                    Console.WriteLine("Please enter your social security number(yyyymmdd-xxxx):");
+                    TextMessages.YellowMessageColor("Please enter your social security number(yyyymmdd-xxxx):");
                     string enteredUser = Console.ReadLine();
 
-                    Console.WriteLine("Please enter your password:");
+                    TextMessages.YellowMessageColor("Please enter your password:");
                     string enteredPassword = Console.ReadLine();
 
                     existingUser = userList.Find(u => u.Username.Contains(enteredUser));
@@ -118,9 +118,9 @@ namespace NCOBank
                 adminList.Add(new Admin("admin", "admin"));
             }
 
-            Console.WriteLine("Enter username");
+            TextMessages.YellowMessageColor("Enter username");
             string username = Console.ReadLine();
-            Console.WriteLine("Enter password");
+            TextMessages.YellowMessageColor("Enter password");
             string password = Console.ReadLine();
 
             Admin existingUser = adminList.Find(a => a.Username.Contains(username));
@@ -148,7 +148,7 @@ namespace NCOBank
         }
         public static void CreateAccount()
         {
-            Console.WriteLine("Please enter your social security number(yyyymmdd-xxxx). This will be your username.");
+            TextMessages.YellowMessageColor("Please enter your social security number(yyyymmdd-xxxx). This will be your username.");
             string newUsername;
             bool ok = false;
             do
@@ -156,7 +156,8 @@ namespace NCOBank
                 newUsername = Console.ReadLine();
                 if (!System.Text.RegularExpressions.Regex.IsMatch(newUsername, @"\d{8}-\d{4}")) // checks that username from input is matching (yyyymmdd-xxxx)
                 {
-                    Console.WriteLine("Enter as yyyymmdd-xxxx!");
+                    TextMessages.MessageColor("You have to enter your social security number as yyyymmdd-xxxx!", false);
+                    TextMessages.YellowMessageColor("Please enter again: ");
                     ok = false;
                 }
                 else
@@ -166,7 +167,7 @@ namespace NCOBank
 
             } while (ok == false);
 
-            Console.WriteLine("Please enter your new password.\nIt has to have a minimum of 8 in lenght and requiers at least one digit, one upper case and one lower case letter."); // skriva om text
+            TextMessages.YellowMessageColor("Please enter your new password.\nIt has to have a minimum of 8 in lenght and requiers at least one digit, one upper case and one lower case letter."); // skriva om text
             string newPassword;
             do
             {
@@ -174,6 +175,7 @@ namespace NCOBank
                 if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"^(?=\D*\d)(?=.*?[A-Za-z]).{8,}$")) // password has to have one digit, one uppercase, one lowercase and at least eight characters
                 {
                     TextMessages.MessageColor("Enter password with a minimum of 8 in lenght, at least one digit, one upper case and one lower case letter.", false);
+                    TextMessages.YellowMessageColor("Please enter your new password: ");
                     ok = false;
                 }
                 else
@@ -181,11 +183,11 @@ namespace NCOBank
                     ok = true;
                 }
             } while (ok == false);
-            
-            Console.WriteLine("Please enter your firstname:");
+
+            TextMessages.YellowMessageColor("Please enter your firstname:");
             string firstName = Console.ReadLine().ToUpper();
 
-            Console.WriteLine("Please enter your lastname:");
+            TextMessages.YellowMessageColor("Please enter your lastname:");
             string lastName = Console.ReadLine().ToUpper();
 
             userList.Add(new User(newUsername, newPassword, firstName, lastName));

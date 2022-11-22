@@ -45,42 +45,38 @@ namespace NCOBank
         {
             if (maxLoan > 0)
             {
-                Console.WriteLine($"The max loan is {maxLoan}");
+                TextMessages.YellowMessageColor($"The max loan is {maxLoan}");
             }
             else if (maxLoan == 0)
             {
-                Console.WriteLine("You don't have enough founds to take a loan");
-                Console.WriteLine("Press enter to continue");
-                Console.ReadLine();
-                Console.Clear();
+                TextMessages.MessageColor("You don't have enough founds to take a loan", false);
+                TextMessages.PressEnter();
                 AccountManager.Run(user);
             }
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
-            Console.WriteLine("Apply the amount you want to loan: ");
+            TextMessages.YellowMessageColor("Apply the amount you want to loan: ");
             float answer;
             while (!float.TryParse(Console.ReadLine(), out answer))
             {
-                Console.WriteLine("Please enter an amount");
+                TextMessages.MessageColor("Please enter an amount", false);
             }
             if (answer > maxLoan)
             {
-                Console.WriteLine("The amount you are asking for is too high");
+                TextMessages.MessageColor("The amount you are asking for is too high", false);
             }
             else if (answer > 0)
             {
                 user.NumLoans += answer;
-                Console.WriteLine($"Your loan for {answer} has been approved");
-                Console.WriteLine(CheckInterest(answer));
+                TextMessages.MessageColor($"Your loan for {answer} has been approved");
+                TextMessages.YellowMessageColor(CheckInterest(answer));
                 AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
             }
             else
             {
-                Console.WriteLine("The amount needs to be greater than 0");  
+                TextMessages.MessageColor("The amount needs to be greater than 0", false);  
             }
-            Console.WriteLine("Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
+            TextMessages.PressEnter();
         }
         private static float CheckMaxLoan(User user)
         {
@@ -105,7 +101,7 @@ namespace NCOBank
         public static string CheckInterest(float loan)
         {
             float interest = loan * loanInterest;
-            return $"The yearly interest rate on your loan is: {interest}";   
+            return $"The yearly interest rate on your loan is: {interest}kr";   
         }
     }
 }
