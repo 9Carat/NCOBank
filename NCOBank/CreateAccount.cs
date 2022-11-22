@@ -9,7 +9,6 @@ namespace NCOBank
     internal class CreateAccount
     {
         private static string accNum;
-        public string MyProperty { get; set; }
         public static void Run(User user)
         {
             Console.WriteLine("Please select one of the following options:");
@@ -73,7 +72,6 @@ namespace NCOBank
         }
         public static void CreateForeignCurrencyAcc(User user)
         {
-
             string Currency;
 
             Console.WriteLine("USD, EUR, DKK");
@@ -87,13 +85,10 @@ namespace NCOBank
                     accNum = item.Key.accountNum;
                 }
             }
-
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
             Console.WriteLine($"Personal account {accNum} successfully created. Press enter to continue.");
             Console.ReadLine();
             Console.Clear();
-
-           
         }
         public static string RndAccNum()
         {

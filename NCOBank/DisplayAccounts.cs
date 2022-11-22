@@ -62,6 +62,14 @@ namespace NCOBank
                 }
             }
 
+            foreach (var item in AccountManager.loanList)
+            {
+                if (item.Value.Equals(user))
+                {
+                    Console.WriteLine($"Loan account - Balance: {item.Value.NumLoans} - Interest: {item.Key.LoanInterest} "); // Add correct method
+                }
+            }
+
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             Console.Clear();
