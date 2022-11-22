@@ -44,7 +44,6 @@ namespace NCOBank
         {
             if (maxLoan > 0)
             {
-
                 Console.WriteLine($"The max loan is {maxLoan}");
             }
             else if (maxLoan == 0)
@@ -71,6 +70,7 @@ namespace NCOBank
             {
                 user.NumLoans += answer;
                 Console.WriteLine($"Your loan for {answer} has been approved");
+                Console.WriteLine(CheckInterest(answer));
                 AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
             }
             Console.WriteLine("Press enter to continue");
@@ -94,6 +94,11 @@ namespace NCOBank
                 }
             }
             return maxLoan = totalPersonal * totalLoan - newLoan;
+        }
+        public static string CheckInterest(float loan)
+        {
+            float interest = loan * loanInterest;
+            return $"The yearly interest rate on your loan will be: {interest}";   
         }
     }
 }
