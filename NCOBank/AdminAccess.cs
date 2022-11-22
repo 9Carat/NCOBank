@@ -217,6 +217,11 @@ namespace NCOBank
             try
             {
                 exchangeRate = float.Parse(Console.ReadLine());
+                if (exchangeRate<=0)
+                {
+                    Console.WriteLine("You cant set currency to 0 or a negative number");
+                    UppdateExchangeRate();
+                }
             }
             catch (Exception)
             {
