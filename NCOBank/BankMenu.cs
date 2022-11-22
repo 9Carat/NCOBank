@@ -17,6 +17,21 @@ namespace NCOBank
             string selection;
             do
             {
+                Console.WriteLine(" _   _   _____   _____     ");
+                Console.WriteLine("| \\ | | /  __ \\ |  _  |    ");
+                Console.WriteLine("|  \\| | | /  \\/ | | | |    ");
+                Console.WriteLine("| . ` | | |     | | | |     ");
+                Console.WriteLine("| |\\  | | \\__/\\ \\ \\_/ /    ");
+                Console.WriteLine("\\_| \\_/  \\____/  \\___/     ");
+                Console.WriteLine(" ");
+                Console.WriteLine("______                _    ");
+                Console.WriteLine("| ___ \\              | |   ");
+                Console.WriteLine("| |_/ /  __ _  _ __  | | __");
+                Console.WriteLine("| ___ \\ / _` || '_ \\ | |/ /");
+                Console.WriteLine("| |_/ /| (_| || | | ||   < ");
+                Console.WriteLine("\\____/  \\__,_||_| |_||_|\\_\\");
+                Console.WriteLine(" ");
+
                 Console.WriteLine("Welcome to the NCO Bank!");
                 Console.WriteLine("Please select one of the following options:");
                 Console.WriteLine("1. Login");
@@ -33,10 +48,6 @@ namespace NCOBank
                         break;
                     case "2":
                         Console.Clear();
-                        //userList.Add(new User("a", "1")); // Creates temp accounts
-                        //userList.Add(new User("b", "2"));
-                        Console.WriteLine("Accounts created! (line 32)");
-                        //Run();
                         CreateAccount();
                         break;
                     case "3":
@@ -44,14 +55,16 @@ namespace NCOBank
                         AdminLogin();
                         break;
                     case "4":
+                        Console.WriteLine("Welcome back!");
                         Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Please input your choice using only numbers");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                 }
             } while (selection != "4");
-            
         }
         public static void Login()
         {
@@ -64,25 +77,33 @@ namespace NCOBank
             {
                 do
                 {
-                    Console.WriteLine("Please enter your username");
+                    Console.WriteLine("Please enter your social security number(yyyymmdd-xxxx):");
                     string enteredUser = Console.ReadLine();
 
-                    Console.WriteLine("Please enter your password");
+                    Console.WriteLine("Please enter your password:");
                     string enteredPassword = Console.ReadLine();
 
                     existingUser = userList.Find(u => u.Username.Contains(enteredUser));
                     existingPassword = userList.Find(u => u.Password.Contains(enteredPassword));
 
-                    if (existingUser == null || existingPassword == null || existingUser != existingPassword)
+                    if (existingUser == null || existingPassword == null)
                     {
                         Console.WriteLine("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
                         attempts++;
                     }
-                    else if (existingUser != null && existingPassword != null && existingUser == existingPassword)
+                    else
                     {
-                        Console.WriteLine("Login sucessful!");
-                        verifiedUser = true;
-                        break;
+                        if (existingUser.Username != enteredUser || existingPassword.Password != enteredPassword || existingUser != existingPassword)
+                        {
+                            Console.WriteLine("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
+                            attempts++;
+                        }
+                        else if (existingUser.Username == enteredUser && existingPassword.Password == enteredPassword && existingUser == existingPassword)
+                        {
+                            Console.WriteLine("Login sucessful!");
+                            verifiedUser = true;
+                            break;
+                        }
                     }
                 }
                 while (attempts < 3);
@@ -118,28 +139,38 @@ namespace NCOBank
             Admin existingUser = adminList.Find(a => a.Username.Contains(username));
             Admin existingPassword = adminList.Find(a => a.Password.Contains(password));
 
-            if (existingUser == null || existingPassword == null || existingUser != existingPassword)
+            if(existingUser == null || existingPassword == null)
             {
                 Console.WriteLine("Username or password is incorrect. Press enter to continue.");
                 Console.ReadLine();
                 Console.Clear();
                 Run();
             }
-            else if (existingUser != null && existingPassword != null && existingUser == existingPassword)
+            else
             {
-                Console.WriteLine("Login sucessful! Press enter to continue");
-                Console.ReadLine();
-                Console.Clear();
-                AdminAccess.Run();
+                if (existingUser.Username != username || existingPassword.Password != password || existingUser != existingPassword)
+                {
+                    Console.WriteLine("Username or password is incorrect. Press enter to continue.");
+                    Console.ReadLine();
+                    Console.Clear();
+                    Run();
+                }
+                else if (existingUser.Username == username && existingPassword.Password == password && existingUser == existingPassword)
+                {
+                    Console.WriteLine("Login sucessful! Press enter to continue");
+                    Console.ReadLine();
+                    Console.Clear();
+                    AdminAccess.Run();
+                }
             }
         }
         public static void CreateAccount()
         {
             Console.WriteLine("Please enter your social security number(yyyymmdd-xxxx). This will be your username.");
             string newUsername;
-            bool ok = false;  
+            bool ok = false;
             do
-            { 
+            {
                 newUsername = Console.ReadLine();
                 if (!System.Text.RegularExpressions.Regex.IsMatch(newUsername, @"\d{8}-\d{4}")) // checks that username from input is matching (yyyymmdd-xxxx)
                 {
@@ -150,7 +181,7 @@ namespace NCOBank
                 {
                     ok = true;
                 }
-                
+
             } while (ok == false);
 
             Console.WriteLine("Please enter your new password.\nIt needs one number, one or more uppercase characters and at least eight characters long."); // skriva om text
@@ -168,8 +199,14 @@ namespace NCOBank
                     ok = true;
                 }
             } while (ok == false);
+            
+            Console.WriteLine("Please enter your firstname:");
+            string firstName = Console.ReadLine().ToUpper();
 
-            userList.Add(new User(newUsername, newPassword));
+            Console.WriteLine("Please enter your lastname:");
+            string lastName = Console.ReadLine().ToUpper();
+
+            userList.Add(new User(newUsername, newPassword, firstName, lastName));
 
             Console.WriteLine("User successfully created!");
             Console.WriteLine("Press enter to continue");
