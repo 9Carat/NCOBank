@@ -36,7 +36,7 @@ namespace NCOBank
                 }
                 Console.WriteLine("Please enter a valid option");
             } while (true);
-            
+
         }
         public static void TransferAmount(User user)
         {
@@ -48,7 +48,7 @@ namespace NCOBank
             float amount;
             Account account1 = null;
             Account account2 = null;
-            
+
             foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
@@ -79,22 +79,22 @@ namespace NCOBank
                 throw;
             }
 
-            foreach (var item in AccountManager.accountList) 
+            foreach (var item in AccountManager.accountList)
             {
-                
-                    if (item.Key.accountNum == accSend && item.Key.balance > amount && item.Value.Equals(user)) // Checks if sending acc exists, belongs to the user and has enough coverage
-                    {
-                        acc1Exists = true;
-                        account1 = item.Key;
-                       
-                    }
 
-                    else if (item.Key.accountNum == accRecieve)
-                    {
-                        acc2Exists = true;
-                        account2 = item.Key;
-                    }
-                
+                if (item.Key.accountNum == accSend && item.Key.balance > amount && item.Value.Equals(user)) // Checks if sending acc exists, belongs to the user and has enough coverage
+                {
+                    acc1Exists = true;
+                    account1 = item.Key;
+
+                }
+
+                else if (item.Key.accountNum == accRecieve)
+                {
+                    acc2Exists = true;
+                    account2 = item.Key;
+                }
+
             }
 
             if (acc1Exists && acc2Exists && amount > 0) // Goes through with the transfer if both acc exists, sendingacc belongs to user, if amount is positive and acc balance > amount
@@ -136,7 +136,7 @@ namespace NCOBank
             Console.Clear();
             Run(user);
         }
-        public static void TransferForeignCurrency (User user)
+        public static void TransferForeignCurrency(User user)
         {
             float amount;
             string accountSend;
@@ -151,11 +151,11 @@ namespace NCOBank
                 {
                     AccountManager.ExchangeRate.Add("USD", 0.096f);
                 }
-                else if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
+                if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
                 {
                     AccountManager.ExchangeRate.Add("EUR", 0.093f);
                 }
-                else if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
+                if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
                 {
                     AccountManager.ExchangeRate.Add("DKK", 0.069f);
                 }
@@ -165,7 +165,7 @@ namespace NCOBank
                 AccountManager.ExchangeRate.Remove("currency");
                 throw;
             }
-    
+
             foreach (var item in AccountManager.accountList)
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
@@ -214,25 +214,11 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user) && accountRecieve == item.Key.accountNum && item.Key.accType == "currency")
                 {
-                    if (item.Key.currency == "USD")
-                    {
-                        accountRecieveExist = true;
-                        accRecieve = item.Key;
+                    accRecieve = item.Key;
+                    accountRecieveExist = true;
 
-                    } else if (item.Key.currency == "EUR")
-                    {
 
-                        item.Key.balance += amount * AccountManager.ExchangeRate["EUR"];
-
-                        
-
-                    } else if (item.Key.currency == "DKK")
-                    {
-
-                        item.Key.balance += amount * AccountManager.ExchangeRate["DKK"];
-                    }
-
-                } 
+                }
 
             }
             if (accountSendExist && accountRecieveExist)
@@ -248,7 +234,7 @@ namespace NCOBank
                     accRecieve.balance += amount * AccountManager.ExchangeRate["EUR"];
                 }
                 else if (accRecieve.currency == "DKK")
-                {                    
+                {
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["DKK"];
 
