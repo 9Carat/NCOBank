@@ -172,7 +172,7 @@ namespace NCOBank
             do
             {
                 newUsername = Console.ReadLine();
-                if (!System.Text.RegularExpressions.Regex.IsMatch(newUsername, @"\d{8}-\d{4}"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(newUsername, @"\d{8}-\d{4}")) // checks that username from input is matching (yyyymmdd-xxxx)
                 {
                     Console.WriteLine("Enter as yyyymmdd-xxxx!");
                     ok = false;
@@ -184,14 +184,27 @@ namespace NCOBank
 
             } while (ok == false);
 
+            Console.WriteLine("Please enter your new password.\nIt needs one number, one or more uppercase characters and at least eight characters long."); // skriva om text
+            string newPassword;
+            do
+            {
+                newPassword = Console.ReadLine();
+                if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d+[A-Z][A-Za-z]{6}")) // password has to have one digit, one uppercase and at least eight characters
+                {
+                    Console.WriteLine("Enter password as BLAlal");
+                    ok = false;
+                }
+                else
+                {
+                    ok = true;
+                }
+            } while (ok == false);
+            
             Console.WriteLine("Please enter your firstname:");
             string firstName = Console.ReadLine().ToUpper();
 
             Console.WriteLine("Please enter your lastname:");
             string lastName = Console.ReadLine().ToUpper();
-
-            Console.WriteLine("Please enter your new password");
-            string newPassword = Console.ReadLine();
 
             userList.Add(new User(newUsername, newPassword, firstName, lastName));
 

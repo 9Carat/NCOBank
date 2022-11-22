@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,8 +35,6 @@ namespace NCOBank
         {
 
         }
-
-
         public static void Run(User user)
         {
             Console.WriteLine("Current interest rate on our loan is {0:P2}", loanInterest); // flytta till checkloan metod?
@@ -46,7 +45,6 @@ namespace NCOBank
         {
             if (maxLoan > 0)
             {
-
                 Console.WriteLine($"The max loan is {maxLoan}");
             }
             else if (maxLoan == 0)
@@ -69,11 +67,16 @@ namespace NCOBank
             {
                 Console.WriteLine("The amount you are asking for is too high");
             }
-            else
+            else if (answer > 0)
             {
                 user.NumLoans += answer;
                 Console.WriteLine($"Your loan for {answer} has been approved");
+                Console.WriteLine(CheckInterest(answer));
                 AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
+            }
+            else
+            {
+                Console.WriteLine("The amount needs to be greater than 0");  
             }
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
@@ -98,6 +101,11 @@ namespace NCOBank
                 }
             }
             return maxLoan = totalPersonal * totalLoan - newLoan;
+        }
+        public static string CheckInterest(float loan)
+        {
+            float interest = loan * loanInterest;
+            return $"The yearly interest rate on your loan will be: {interest}";   
         }
     }
 }

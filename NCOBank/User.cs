@@ -15,7 +15,24 @@ namespace NCOBank
         private string _firstName;
         private string _lastName;
         public Dictionary<string, int> accountList;
-        public float NumLoans { get; set; }
+        public float NumLoans 
+        { 
+            get
+            {
+                return _numLoans;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    Console.WriteLine("The amount can't be under 0");
+                }
+                else
+                {
+                    _numLoans = value;
+                }
+            }
+        }
         public string Username
         {
             get
