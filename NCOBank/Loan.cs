@@ -67,16 +67,16 @@ namespace NCOBank
             {
                 Console.WriteLine("The amount you are asking for is too high");
             }
-            else if (answer <= 0)
-            {
-                Console.WriteLine("The amount needs to be greater than 0");
-            }
-            else
+            else if (answer > 0)
             {
                 user.NumLoans += answer;
                 Console.WriteLine($"Your loan for {answer} has been approved");
                 Console.WriteLine(CheckInterest(answer));
                 AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
+            }
+            else
+            {
+                Console.WriteLine("The amount needs to be greater than 0");  
             }
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
