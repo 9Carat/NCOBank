@@ -12,13 +12,13 @@ namespace NCOBank
         public static void Run()
         {
             string selection = null;
+
             TextColor.YellowMessageColor("1. Add user");
             TextColor.YellowMessageColor("2. Unlock user");
             TextColor.YellowMessageColor("3. Set account balance");
             TextColor.YellowMessageColor("4. Uppdate exchangerate on foreign currency");
             TextColor.YellowMessageColor("0. Log out");
 
-            
             do
             {
                 selection = Console.ReadLine();
@@ -44,7 +44,7 @@ namespace NCOBank
                 TextColor.MessageColor("You have to type the specific key", false);
 
             } while (true);
-            
+
         }
         public static void AddUser()
         {
@@ -72,14 +72,14 @@ namespace NCOBank
 
             foreach (var item in BankMenu.userList)
             {
-                if(item.Username == username)
+                if (item.Username == username)
                 {
                     user = item;
                     break;
                 }
             }
 
-            if(user == null)
+            if (user == null)
             {
                 TextColor.MessageColor("User not found. Please try again", false);
                 Console.ReadLine();
@@ -114,7 +114,7 @@ namespace NCOBank
                         accountNum = item.Key;
                         accountExist = true;
                     }
-   
+
                 }
                 if (!accountExist)
                 {
@@ -136,7 +136,7 @@ namespace NCOBank
                         TextColor.PressEnter();
                         SetBalance();
                     }
-                    
+
                 }
                 catch (Exception)
                 {
@@ -158,13 +158,14 @@ namespace NCOBank
                 TextColor.PressEnter();
                 Run();
             }
-           
+
         }
         public static void UppdateExchangeRate()
         {
             float exchangeRate = 0;
             string currency = null;
             bool currencyExist = false;
+
 
             if (AccountManager.ExchangeRate.ContainsKey("USD"))
             {
@@ -182,6 +183,7 @@ namespace NCOBank
 
             TextColor.YellowMessageColor("USD, EUR, DKK");
             TextColor.YellowMessageColor("Type the name of the currency you want to uppdate: ");
+
             currency = Console.ReadLine();
             if (currency == "USD" || currency == "usd" || currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
             {
@@ -207,6 +209,7 @@ namespace NCOBank
                 UppdateExchangeRate();
                 throw;
             }
+            AccountManager.ExchangeRate.Remove(currency);
             AccountManager.ExchangeRate.Add(currency, exchangeRate);
             TextColor.MessageColor("Currency set");
             TextColor.PressEnter();
