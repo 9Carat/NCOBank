@@ -30,14 +30,12 @@ namespace NCOBank
         }
         public static string CheckInterest(float balance) // lägga till när vi flyttar pengar till sparkonto!!
         {
-            float interest = balance * 12 * savingsInterest;
-            Console.Write("Current yearly interest based on your monthly savings: ");
-            interest.ToString();
-            return String.Format("{0:P2}", interest);
+            float interest = balance * savingsInterest;
+            return $"The yearly savings interest is: {interest}kr";
         }
         public static string DisplayInterest()
         {
-            return String.Format("Current yearly interest rate is {0:P2}", savingsInterest);
+            return String.Format("Yearly interest rate: {0:P2}", savingsInterest);
         }
     }
 }
