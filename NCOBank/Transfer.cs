@@ -11,10 +11,10 @@ namespace NCOBank
         public static void Run(User user)
         {
             string selection = null;
-            TextMessages.YellowMessageColor("Please select one of the following options:");
-            TextMessages.YellowMessageColor("1. Transfer amount between acccounts");
-            TextMessages.YellowMessageColor("2. Transfer to currency account");
-            TextMessages.YellowMessageColor("3. Previous menu");
+            TextColor.YellowMessageColor("Please select one of the following options:");
+            TextColor.YellowMessageColor("1. Transfer amount between acccounts");
+            TextColor.YellowMessageColor("2. Transfer to currency account");
+            TextColor.YellowMessageColor("3. Previous menu");
 
             do
             {
@@ -34,7 +34,7 @@ namespace NCOBank
                         AccountManager.Run(user);
                         break;
                 }
-                TextMessages.MessageColor("Please enter a valid option", false);
+                TextColor.MessageColor("Please enter a valid option", false);
             } while (true);
             
         }
@@ -53,26 +53,26 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
                 {
-                    TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
                 }
             }
-            TextMessages.YellowMessageColor("From which account do you want to transfer from");
+            TextColor.YellowMessageColor("From which account do you want to transfer from");
             accSend = Console.ReadLine();
-            TextMessages.YellowMessageColor("To which account do you want to make the transfer to?");
+            TextColor.YellowMessageColor("To which account do you want to make the transfer to?");
             accRecieve = Console.ReadLine();
             try
             {
-                TextMessages.YellowMessageColor("Select the amount you want to transfer");
+                TextColor.YellowMessageColor("Select the amount you want to transfer");
                 amount = float.Parse(Console.ReadLine());
             }
             catch (Exception)
             {
-                TextMessages.MessageColor("Please enter numbers only", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("Please enter numbers only", false);
+                TextColor.PressEnter();
                 TransferAmount(user);
                 throw;
             }
@@ -101,26 +101,26 @@ namespace NCOBank
                 account2.balance += amount;
                 AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account1.accountNum, $"Transfered amount: {amount} to account: {account2.accountNum} - {DateTime.Now.ToString("g")}")); // Logs the transaction on both accounts
                 AccountManager.accountHistory.Add(new KeyValuePair<string, string>(account2.accountNum, $"Recieved amount: {amount} from account: {account1.accountNum} - {DateTime.Now.ToString("g")}"));
-                TextMessages.MessageColor("Transfer complete");
-                TextMessages.PressEnter();
+                TextColor.MessageColor("Transfer complete");
+                TextColor.PressEnter();
                 Run(user);
             }
             else if (!acc1Exists)
             {
-                TextMessages.MessageColor("Error! Your account could not be found or does not have enough coverage. Please try again.", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("Error! Your account could not be found or does not have enough coverage. Please try again.", false);
+                TextColor.PressEnter();
                 AccountManager.Run(user);
             }
             else if (!acc2Exists)
             {
-                TextMessages.MessageColor("Error! The account you entered could not be found. Please try again.", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("Error! The account you entered could not be found. Please try again.", false);
+                TextColor.PressEnter();
                 AccountManager.Run(user);
             }
             else if (amount <= 0)
             {
-                TextMessages.MessageColor("The amount can not be zero or negative. Please try again.", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("The amount can not be zero or negative. Please try again.", false);
+                TextColor.PressEnter();
                 AccountManager.Run(user);
             }
             Console.ReadLine();
@@ -161,22 +161,22 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
                 {
-                    TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {
-                    TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                 }
             }
-            TextMessages.YellowMessageColor("From which account would you like to send from? ");
+            TextColor.YellowMessageColor("From which account would you like to send from? ");
             accountSend = Console.ReadLine();
-            TextMessages.YellowMessageColor("To which account woul you like to make the transfer to?");
+            TextColor.YellowMessageColor("To which account woul you like to make the transfer to?");
             accountRecieve = Console.ReadLine();
-            TextMessages.YellowMessageColor("How much would you like to transfer? ");
+            TextColor.YellowMessageColor("How much would you like to transfer? ");
             try
             {
                 amount = float.Parse(Console.ReadLine());
@@ -184,8 +184,8 @@ namespace NCOBank
             }
             catch (Exception)
             {
-                TextMessages.MessageColor("Please enter numbers only", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("Please enter numbers only", false);
+                TextColor.PressEnter();
                 TransferForeignCurrency(user);
                 throw;
             }
@@ -245,8 +245,8 @@ namespace NCOBank
             }
             else
             {
-                TextMessages.MessageColor("One or both of the accounts was not found or did not have enough coverage, please try again", false);
-                TextMessages.YellowMessageColor("Press 1 to restart the transfer. \nPress 2 for returning to main menu ");
+                TextColor.MessageColor("One or both of the accounts was not found or did not have enough coverage, please try again", false);
+                TextColor.YellowMessageColor("Press 1 to restart the transfer. \nPress 2 for returning to main menu ");
                 do
                 {
                     string i = Console.ReadLine();
@@ -261,14 +261,14 @@ namespace NCOBank
                             AccountManager.Run(user);
                             break;
                     }
-                    TextMessages.MessageColor("Incorrect input. Press 1 for transfer, 2 for Main menu", false);
+                    TextColor.MessageColor("Incorrect input. Press 1 for transfer, 2 for Main menu", false);
 
                 } while (true);
             }
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accSend.accountNum, $"Transfered amount: {amount} to account: {accRecieve.accountNum} - {DateTime.Now.ToString("g")}"));
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accRecieve.accountNum, $"Recieved amount: {amount} SEK from account: {accSend.accountNum} - {DateTime.Now.ToString("g")}"));
-            TextMessages.MessageColor("Transfer complete");
-            TextMessages.PressEnter();
+            TextColor.MessageColor("Transfer complete");
+            TextColor.PressEnter();
             Run(user);
         }
     }

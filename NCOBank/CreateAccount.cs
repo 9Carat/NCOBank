@@ -11,11 +11,11 @@ namespace NCOBank
         private static string accNum;
         public static void Run(User user)
         {
-            TextMessages.YellowMessageColor("Please select one of the following options:");
-            TextMessages.YellowMessageColor("1. Create a personal account");
-            TextMessages.YellowMessageColor("2. Create a savings account" + " - " + SavingsAccount.DisplayInterest());
-            TextMessages.YellowMessageColor("3. Create a new currency account");
-            TextMessages.YellowMessageColor("3. Previous menu");
+            TextColor.YellowMessageColor("Please select one of the following options:");
+            TextColor.YellowMessageColor("1. Create a personal account");
+            TextColor.YellowMessageColor("2. Create a savings account" + " - " + SavingsAccount.DisplayInterest());
+            TextColor.YellowMessageColor("3. Create a new currency account");
+            TextColor.YellowMessageColor("3. Previous menu");
             string selection = Console.ReadLine();
 
             switch (selection)
@@ -50,8 +50,8 @@ namespace NCOBank
                 }
             }
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
-            TextMessages.MessageColor($"Personal account {accNum} successfully created.");
-            TextMessages.PressEnter();
+            TextColor.MessageColor($"Personal account {accNum} successfully created.");
+            TextColor.PressEnter();
         }
         public static void CreateSavingsAcc(User user)
         {
@@ -65,15 +65,15 @@ namespace NCOBank
                 }
             }
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}"));
-            TextMessages.MessageColor($"Savings account {accNum} successfully created.");
-            TextMessages.PressEnter();
+            TextColor.MessageColor($"Savings account {accNum} successfully created.");
+            TextColor.PressEnter();
         }
         public static void CreateForeignCurrencyAcc(User user)
         {
             string Currency;
 
-            TextMessages.YellowMessageColor("USD, EUR, DKK");
-            TextMessages.YellowMessageColor("What currency would you like to create your account in");
+            TextColor.YellowMessageColor("USD, EUR, DKK");
+            TextColor.YellowMessageColor("What currency would you like to create your account in");
             Currency = Console.ReadLine().ToUpper();
             AccountManager.accountList.Add(new CurrencyAccount(Currency), user); // stores the account in the dictionary
             foreach (var item in AccountManager.accountList)
@@ -84,8 +84,8 @@ namespace NCOBank
                 }
             }
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
-            TextMessages.MessageColor($"Personal account {accNum} successfully created.");
-            TextMessages.PressEnter();
+            TextColor.MessageColor($"Personal account {accNum} successfully created.");
+            TextColor.PressEnter();
         }
         public static string RndAccNum()
         {

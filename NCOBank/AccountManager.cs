@@ -20,12 +20,12 @@ namespace NCOBank
             string selection;
             do
             {
-                TextMessages.MessageColor($"Welcome \"{user.FirstName} {user.LastName}\". Please select an option to continue");
-                TextMessages.YellowMessageColor("1. Create a personal, savings or currency account");
-                TextMessages.YellowMessageColor("2. View your current accounts and their balances");
-                TextMessages.YellowMessageColor("3. Transfer amount to other accounts");
-                TextMessages.YellowMessageColor("4. Apply for loan");
-                TextMessages.YellowMessageColor("0. Log out");
+                TextColor.MessageColor($"Welcome \"{user.FirstName} {user.LastName}\". Please select an option to continue");
+                TextColor.YellowMessageColor("1. Create a personal, savings or currency account");
+                TextColor.YellowMessageColor("2. View your current accounts and their balances");
+                TextColor.YellowMessageColor("3. Transfer amount to other accounts");
+                TextColor.YellowMessageColor("4. Apply for loan");
+                TextColor.YellowMessageColor("0. Log out");
                 selection = Console.ReadLine();
 
                 switch (selection)
@@ -50,8 +50,8 @@ namespace NCOBank
                         BankMenu.Run();
                         break;
                     default:
-                        TextMessages.MessageColor("Please input your choice using the correct number.", false);
-                        TextMessages.PressEnter();
+                        TextColor.MessageColor("Please input your choice using the correct number.", false);
+                        TextColor.PressEnter();
                         break;
                 }
             }

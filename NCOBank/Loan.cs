@@ -11,24 +11,24 @@ namespace NCOBank
     public class Loan
     {
         private static float maxLoan;
-        private static float totalPersonal;
+        private static float totalUserBalance;
         private static float loanInterest = 0.03f;
-        private static float totalLoan = 5;
+        private static float maxLoanSum = 5;
         private static float newLoan;
         public float NewLoan { get; set; }
-        public float TotalPersonal { get; set; }
+        public float TotalUserBalance { get; set; }
         public float LoanInterest { get; set; }
-        public float TotalLoan
+        public float MaxLoanSum
         {
             get
             {
-                return totalLoan;
+                return maxLoanSum;
             }
         }
         public Loan()
         {
             this.NewLoan = newLoan;
-            this.TotalPersonal = totalPersonal;
+            this.TotalUserBalance = totalUserBalance;
             this.LoanInterest = loanInterest;
         }
         public Loan(float newLoan, float answer)
@@ -37,7 +37,7 @@ namespace NCOBank
         }
         public static void Run(User user)
         {
-            Console.WriteLine("Current interest rate on our loan is {0:P2}", loanInterest); // flytta till checkloan metod?
+            TextColor.YellowMessageColor(DisplayInterest());
             CheckMaxLoan(user);
             CheckLoan(user);
         }
@@ -45,38 +45,38 @@ namespace NCOBank
         {
             if (maxLoan > 0)
             {
-                TextMessages.YellowMessageColor($"The max loan is {maxLoan}");
+                TextColor.YellowMessageColor($"The max loan is {maxLoan}");
             }
             else if (maxLoan == 0)
             {
-                TextMessages.MessageColor("You don't have enough founds to take a loan", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("You don't have enough founds to take a loan", false);
+                TextColor.PressEnter();
                 AccountManager.Run(user);
             }
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
-            TextMessages.YellowMessageColor("Apply the amount you want to loan: ");
+            TextColor.YellowMessageColor("Apply the amount you want to loan: ");
             float answer;
             while (!float.TryParse(Console.ReadLine(), out answer))
             {
-                TextMessages.MessageColor("Please enter an amount", false);
+                TextColor.MessageColor("Please enter an amount", false);
             }
             if (answer > maxLoan)
             {
-                TextMessages.MessageColor("The amount you are asking for is too high", false);
+                TextColor.MessageColor("The amount you are asking for is too high", false);
             }
             else if (answer > 0)
             {
                 user.NumLoans += answer;
-                TextMessages.MessageColor($"Your loan for {answer} has been approved");
-                TextMessages.YellowMessageColor(CheckInterest(answer));
+                TextColor.MessageColor($"Your loan for {answer} has been approved");
+                TextColor.YellowMessageColor(CheckInterest(answer));
                 AccountManager.loanList.Add(new Loan(maxLoan, answer), user);
             }
             else
             {
-                TextMessages.MessageColor("The amount needs to be greater than 0", false);  
+                TextColor.MessageColor("The amount needs to be greater than 0", false);  
             }
-            TextMessages.PressEnter();
+            TextColor.PressEnter();
         }
         private static float CheckMaxLoan(User user)
         {
@@ -85,7 +85,7 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user))
                 {
-                    totalPersonal += item.Key.balance;
+                    totalUserBalance += item.Key.balance;
                 }
             }
 
@@ -96,12 +96,16 @@ namespace NCOBank
                     newLoan = item.Value.NumLoans;
                 }
             }
-            return maxLoan = totalPersonal * totalLoan - newLoan;
+            return maxLoan = totalUserBalance * maxLoanSum - newLoan;
         }
         public static string CheckInterest(float loan)
         {
             float interest = loan * loanInterest;
             return $"The yearly interest rate on your loan is: {interest}kr";   
+        }
+        public static string DisplayInterest()
+        {
+            return String.Format("Current interest rate on our loan is {0:P2}", loanInterest);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NCOBank
 {
-    public class TextMessages
+    public class TextColor
     {
         public static void PressEnter()
         {

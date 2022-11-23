@@ -12,11 +12,11 @@ namespace NCOBank
         public static void Run()
         {
             string selection = null;
-            TextMessages.YellowMessageColor("1. Add user");
-            TextMessages.YellowMessageColor("2. Unlock user");
-            TextMessages.YellowMessageColor("3. Set account balance");
-            TextMessages.YellowMessageColor("4. Uppdate exchangerate on foreign currency");
-            TextMessages.YellowMessageColor("0. Log out");
+            TextColor.YellowMessageColor("1. Add user");
+            TextColor.YellowMessageColor("2. Unlock user");
+            TextColor.YellowMessageColor("3. Set account balance");
+            TextColor.YellowMessageColor("4. Uppdate exchangerate on foreign currency");
+            TextColor.YellowMessageColor("0. Log out");
 
             
             do
@@ -41,7 +41,7 @@ namespace NCOBank
                         BankMenu.Run();
                         break;
                 }
-                TextMessages.MessageColor("You have to type the specific key", false);
+                TextColor.MessageColor("You have to type the specific key", false);
 
             } while (true);
             
@@ -54,8 +54,8 @@ namespace NCOBank
         public static void UnlockUser()
         {
             BankMenu.lockedOut = false;
-            TextMessages.MessageColor("Login lock removed.");
-            TextMessages.PressEnter();
+            TextColor.MessageColor("Login lock removed.");
+            TextColor.PressEnter();
             Run();
         }
         public static void SetBalance()
@@ -67,7 +67,7 @@ namespace NCOBank
             string accNum = null;
             bool accountExist = false;
 
-            TextMessages.YellowMessageColor("Select user:");
+            TextColor.YellowMessageColor("Select user:");
             username = Console.ReadLine();
 
             foreach (var item in BankMenu.userList)
@@ -81,31 +81,31 @@ namespace NCOBank
 
             if(user == null)
             {
-                TextMessages.MessageColor("User not found. Please try again", false);
+                TextColor.MessageColor("User not found. Please try again", false);
                 Console.ReadLine();
                 Console.Clear();
                 Run();
             }
             else
             {
-                TextMessages.YellowMessageColor("User has the following accounts:");
+                TextColor.YellowMessageColor("User has the following accounts:");
 
                 foreach (var item in AccountManager.accountList)
                 {
                     if (item.Value.Equals(user) && item.Key.accType == "personal")
                     {
-                        TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
                     }
                     else if (item.Value.Equals(user) && item.Key.accType == "savings")
                     {
-                        TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
                     }
                     else if (item.Value.Equals(user) && item.Key.accType == "currency")
                     {
-                        TextMessages.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                     }
                 }
-                TextMessages.YellowMessageColor("Select account:");
+                TextColor.YellowMessageColor("Select account:");
                 accNum = Console.ReadLine();
                 foreach (var item in AccountManager.accountList)
                 {
@@ -118,11 +118,11 @@ namespace NCOBank
                 }
                 if (!accountExist)
                 {
-                    TextMessages.MessageColor("the account you typed in do not exist, please try again: ", false);
-                    TextMessages.PressEnter();
+                    TextColor.MessageColor("the account you typed in do not exist, please try again: ", false);
+                    TextColor.PressEnter();
                     SetBalance();
                 }
-                TextMessages.YellowMessageColor("How much do you want to transfer?: ");
+                TextColor.YellowMessageColor("How much do you want to transfer?: ");
                 try
                 {
                     amount = float.Parse(Console.ReadLine());
@@ -132,16 +132,16 @@ namespace NCOBank
                     }
                     else
                     {
-                        TextMessages.MessageColor("You cant set 0 or a negative balance", false);
-                        TextMessages.PressEnter();
+                        TextColor.MessageColor("You cant set 0 or a negative balance", false);
+                        TextColor.PressEnter();
                         SetBalance();
                     }
                     
                 }
                 catch (Exception)
                 {
-                    TextMessages.MessageColor("You have to type in the amount with numbers 0-9 only", false);
-                    TextMessages.PressEnter();
+                    TextColor.MessageColor("You have to type in the amount with numbers 0-9 only", false);
+                    TextColor.PressEnter();
                     SetBalance();
                     throw;
                 }
@@ -154,8 +154,8 @@ namespace NCOBank
                     }
                 }
 
-                TextMessages.MessageColor("Balance set");
-                TextMessages.PressEnter();
+                TextColor.MessageColor("Balance set");
+                TextColor.PressEnter();
                 Run();
             }
            
@@ -180,21 +180,21 @@ namespace NCOBank
             }
 
 
-            TextMessages.YellowMessageColor("USD, EUR, DKK");
-            TextMessages.YellowMessageColor("Type the name of the currency you want to uppdate: ");
+            TextColor.YellowMessageColor("USD, EUR, DKK");
+            TextColor.YellowMessageColor("Type the name of the currency you want to uppdate: ");
             currency = Console.ReadLine();
             if (currency == "USD" || currency == "usd" || currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
             {
-                TextMessages.MessageColor("Currency chosen: ");
+                TextColor.MessageColor("Currency chosen: ");
                 currencyExist = true;
             }
             else
             {
-                TextMessages.MessageColor("You chose a non-viable currency. Try again: ", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("You chose a non-viable currency. Try again: ", false);
+                TextColor.PressEnter();
                 Run();
             }
-            TextMessages.YellowMessageColor("Type the value of the currency you want to uppdate in this format 0,000: ");
+            TextColor.YellowMessageColor("Type the value of the currency you want to uppdate in this format 0,000: ");
 
             try
             {
@@ -202,14 +202,14 @@ namespace NCOBank
             }
             catch (Exception)
             {
-                TextMessages.MessageColor("When setting value you can only use numbers 0-9.", false);
-                TextMessages.PressEnter();
+                TextColor.MessageColor("When setting value you can only use numbers 0-9.", false);
+                TextColor.PressEnter();
                 UppdateExchangeRate();
                 throw;
             }
             AccountManager.ExchangeRate.Add(currency, exchangeRate);
-            TextMessages.MessageColor("Currency set");
-            TextMessages.PressEnter();
+            TextColor.MessageColor("Currency set");
+            TextColor.PressEnter();
             Run();
         }
     }
