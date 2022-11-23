@@ -228,12 +228,12 @@ namespace NCOBank
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["USD"];
                 }
-                else if (accRecieve.currency == "EUR")
+                else if (accRecieve.currency == "EUR" && accSend.balance > 0)
                 {
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["EUR"];
                 }
-                else if (accRecieve.currency == "DKK")
+                else if (accRecieve.currency == "DKK" && accSend.balance > 0)
                 {
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["DKK"];
