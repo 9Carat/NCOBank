@@ -59,15 +59,19 @@ namespace NCOBank
                 {
                     TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
                 }
-            }
-
-            foreach (var item in AccountManager.loanList)
-            {
-                if (item.Value.Equals(user))
+                else if (item.Value.Equals(user) && item.Key.accType == "loan")
                 {
-                    TextColor.YellowMessageColor($"Loan account - Balance: {item.Value.NumLoans} - " + Loan.CheckInterest(item.Value.NumLoans)); 
+                    TextColor.YellowMessageColor($"Loan nr: {item.Key.accountNum} - Loan debt: {item.Key.balance} - {Loan.CheckInterest(item.Key.balance)}");
                 }
             }
+
+            //foreach (var item in AccountManager.loanList)
+            //{
+            //    if (item.Value.Equals(user))
+            //    {
+            //        TextColor.YellowMessageColor($"Loan account - Balance: {item.Value.NumLoans} - " + Loan.CheckInterest(item.Value.NumLoans)); 
+            //    }
+            //}
 
             TextColor.PressEnter();
             Run(user);
@@ -84,7 +88,7 @@ namespace NCOBank
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {

@@ -17,7 +17,14 @@ namespace NCOBank
             }
             set
             {
-                savingsInterest = value;
+                if (value < 0)
+                {
+                    throw new Exception("Value can't be negative");
+                }
+                else
+                {
+                    savingsInterest = value;
+                }
             }
         }
         public SavingsAccount()

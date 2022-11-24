@@ -57,7 +57,7 @@ namespace NCOBank
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)}");
                 }
             }
             TextColor.YellowMessageColor("From which account do you want to transfer from");
@@ -165,7 +165,7 @@ namespace NCOBank
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {
