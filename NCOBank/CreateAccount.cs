@@ -70,26 +70,6 @@ namespace NCOBank
         }
         public static void CreateForeignCurrencyAcc(User user)
         {
-            try
-            {
-                if (!AccountManager.ExchangeRate.ContainsKey("USD"))
-                {
-                    AccountManager.ExchangeRate.Add("USD", 0.096f);
-                }
-                if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
-                {
-                    AccountManager.ExchangeRate.Add("EUR", 0.093f);
-                }
-                if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
-                {
-                    AccountManager.ExchangeRate.Add("DKK", 0.069f);
-                }
-            }
-            catch (Exception)
-            {
-                AccountManager.ExchangeRate.Remove("currency");
-                throw;
-            }
             string Currency;
             bool validCurrency = false;
             do

@@ -12,9 +12,9 @@ namespace NCOBank
     {
         private static float balanceSEK;
         private static float exhangerate;
-        private static float maxLoan;
+        private static float maxLoanSum;
         private static float loanInterest = 0.03f;
-        private static float maxLoanSum = 5;
+        private static float totalLoan = 5;
         public float Exhangerate { get; set; }
         public float LoanInterest 
         {
@@ -34,11 +34,11 @@ namespace NCOBank
                 }
             }
         }
-        public float MaxLoanSum
+        public float TotalLoan
         {
             get
             {
-                return maxLoanSum;
+                return totalLoan;
             }
         }
         public Loan(float answer)
@@ -56,9 +56,9 @@ namespace NCOBank
         }
         private static void CheckLoan(User user) 
         {
-            if (maxLoan > 0)
+            if (maxLoanSum > 0)
             {
-                TextColor.YellowMessageColor($"The max loan is {maxLoan}");
+                TextColor.YellowMessageColor($"The max loan is {maxLoanSum}");
             }
             else 
             {
@@ -76,7 +76,7 @@ namespace NCOBank
                 {
                     TextColor.MessageColor("Please enter an amount", false);
                 }
-                if (answer > maxLoan)
+                if (answer > maxLoanSum)
                 {
                     TextColor.MessageColor("The amount you are asking for is too high", false);
                 }
@@ -124,7 +124,7 @@ namespace NCOBank
                     newLoan += item.Key.balance;
                 }
             }
-            return maxLoan = totalBalance * maxLoanSum - newLoan; 
+            return maxLoanSum = totalBalance * maxLoanSum - newLoan; 
              
         }
         public static string CheckInterest(float loan)

@@ -11,9 +11,29 @@ namespace NCOBank
         public static List<KeyValuePair<string, string>> accountHistory = new List<KeyValuePair<string, string>>();
         public static Dictionary<Account, User> accountList = new Dictionary<Account, User>();
         public static Dictionary<string, float> ExchangeRate = new Dictionary<string, float>();
-
+        
         public static void Run(User user)
         {
+            try
+            {
+                if (!AccountManager.ExchangeRate.ContainsKey("USD"))
+                {
+                    AccountManager.ExchangeRate.Add("USD", 0.096f);
+                }
+                if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
+                {
+                    AccountManager.ExchangeRate.Add("EUR", 0.093f);
+                }
+                if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
+                {
+                    AccountManager.ExchangeRate.Add("DKK", 0.069f);
+                }
+            }
+            catch (Exception)
+            {
+                AccountManager.ExchangeRate.Remove("currency");
+                throw;
+            }
             string selection;
             do
             {
