@@ -49,23 +49,19 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} SEK");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)} ");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} SEK - {SavingsAccount.CheckInterest(item.Key.balance)} ");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} {item.Key.currency}");
                 }
-            }
-
-            foreach (var item in AccountManager.loanList)
-            {
-                if (item.Value.Equals(user))
+                else if (item.Value.Equals(user) && item.Key.accType == "loan")
                 {
-                    TextColor.YellowMessageColor($"Loan account - Balance: {item.Value.NumLoans} - " + Loan.CheckInterest(item.Value.NumLoans)); 
+                    TextColor.YellowMessageColor($"Loan nr: {item.Key.accountNum} - Loan debt: {item.Key.balance} SEK - {Loan.CheckInterest(item.Key.balance)}");
                 }
             }
 
@@ -80,15 +76,15 @@ namespace NCOBank
             {
                 if (item.Value.Equals(user) && item.Key.accType == "personal")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} SEK");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} SEK - {SavingsAccount.CheckInterest(item.Key.balance)}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} {item.Key.currency}");
                 }
             }
 
@@ -116,8 +112,24 @@ namespace NCOBank
             else
                 TextColor.MessageColor("Account not found. Please try again", false);
 
-            TextColor.PressEnter();
-            Run(user);
+            TextColor.YellowMessageColor("\nPress 1 to show a different account\nPress 2 to return to the previous menu");
+            while (true)
+            {
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        DisplayHistory(user);
+                        break;
+                    case "2":
+                        Run(user);
+                        TextColor.PressEnter();
+                        break;
+                    default:
+                        TextColor.MessageColor("Please enter option 1 or 2", false);
+                        break;
+                }
+            }
         }
     }
 }

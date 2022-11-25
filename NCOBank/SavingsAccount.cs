@@ -17,7 +17,14 @@ namespace NCOBank
             }
             set
             {
-                savingsInterest = value;
+                if (value < 0)
+                {
+                    throw new Exception("Value can't be negative");
+                }
+                else
+                {
+                    savingsInterest = value;
+                }
             }
         }
         public SavingsAccount()
@@ -28,7 +35,7 @@ namespace NCOBank
             this.accType = "savings";
 
         }
-        public static string CheckInterest(float balance) // lägga till när vi flyttar pengar till sparkonto!!
+        public static string CheckInterest(float balance) 
         {
             float interest = balance * savingsInterest;
             return $"The yearly savings interest is: {interest}kr";

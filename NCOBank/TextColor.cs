@@ -14,12 +14,6 @@ namespace NCOBank
             Console.ReadLine();
             Console.Clear();
         }
-        public static void RedMessageColor(string output, int attempts)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(output);
-            Console.ResetColor();
-        }
         public static void MessageColor(string output, bool ok = true)
         {
             if (ok)

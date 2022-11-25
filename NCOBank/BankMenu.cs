@@ -75,14 +75,14 @@ namespace NCOBank
 
                     if (existingUser == null || existingPassword == null)
                     {
-                        TextColor.RedMessageColor("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
+                        TextColor.MessageColor($"Username or password is incorrect. Please try again. You have {2 - attempts} attempts left.", false);
                         attempts++;
                     }
                     else
                     {
                         if (existingUser.Username != enteredUser || existingPassword.Password != enteredPassword || existingUser != existingPassword)
                         {
-                            TextColor.RedMessageColor("Username or password is incorrect. Please try again. You have {0} attempts left.", 2 - attempts);
+                            TextColor.MessageColor($"Username or password is incorrect. Please try again. You have {2 - attempts} attempts left.", false);
                             attempts++;
                         }
                         else if (existingUser.Username == enteredUser && existingPassword.Password == enteredPassword && existingUser == existingPassword)

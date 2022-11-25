@@ -57,7 +57,7 @@ namespace NCOBank
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)}");
                 }
             }
             TextColor.YellowMessageColor("From which account do you want to transfer from");
@@ -80,7 +80,7 @@ namespace NCOBank
             foreach (var item in AccountManager.accountList)
             {
 
-                if (item.Key.accountNum == accSend && item.Key.balance > amount && item.Value.Equals(user)) // Checks if sending acc exists, belongs to the user and has enough coverage
+                if (item.Key.accountNum == accSend && item.Key.balance >= amount && item.Value.Equals(user)) // Checks if sending acc exists, belongs to the user and has enough coverage
                 {
                     acc1Exists = true;
                     account1 = item.Key;
@@ -165,7 +165,7 @@ namespace NCOBank
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "savings")
                 {
-                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Interest rate: {item.Key.savingsInterest}");
+                    TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)}");
                 }
                 else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {
@@ -174,7 +174,7 @@ namespace NCOBank
             }
             TextColor.YellowMessageColor("From which account would you like to send from? ");
             accountSend = Console.ReadLine();
-            TextColor.YellowMessageColor("To which account woul you like to make the transfer to?");
+            TextColor.YellowMessageColor("To which account would you like to make the transfer to?");
             accountRecieve = Console.ReadLine();
             TextColor.YellowMessageColor("How much would you like to transfer? ");
             try
@@ -192,7 +192,7 @@ namespace NCOBank
 
             foreach (var item in AccountManager.accountList)
             {
-                if (item.Value.Equals(user) && item.Key.accountNum == accountSend && item.Key.balance > amount)
+                if (item.Value.Equals(user) && item.Key.accountNum == accountSend && item.Key.balance >= amount)
                 {
                     accSend = item.Key;
                     accountSendExist = true;
@@ -212,17 +212,17 @@ namespace NCOBank
             }
             if (accountSendExist && accountRecieveExist)
             {
-                if (accRecieve.currency == "USD" && accSend.balance > 0)
+                if (accRecieve.currency == "USD" && accSend.balance >= 0)
                 {
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["USD"];
                 }
-                else if (accRecieve.currency == "EUR" && accSend.balance > 0)
+                else if (accRecieve.currency == "EUR" && accSend.balance >= 0)
                 {
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["EUR"];
                 }
-                else if (accRecieve.currency == "DKK" && accSend.balance > 0)
+                else if (accRecieve.currency == "DKK" && accSend.balance >= 0)
                 {
                     accSend.balance -= amount;
                     accRecieve.balance += amount * AccountManager.ExchangeRate["DKK"];

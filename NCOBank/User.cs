@@ -8,31 +8,12 @@ namespace NCOBank
 {
     public class User
     {
-        private float _numLoans;
         private string _username;
         private string _password;
         private string _userRole;
         private string _firstName;
         private string _lastName;
         public Dictionary<string, int> accountList;
-        public float NumLoans 
-        { 
-            get
-            {
-                return _numLoans;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    Console.WriteLine("The amount can't be under 0");
-                }
-                else
-                {
-                    _numLoans = value;
-                }
-            }
-        }
         public string Username
         {
             get
@@ -74,7 +55,14 @@ namespace NCOBank
             }
             set
             {
-                _firstName = value;
+                if (value == null || value == string.Empty)
+                {
+                    _firstName = "Agent";
+                }
+                else
+                {
+                    _firstName = value;
+                }
             } 
         }
         public string LastName
@@ -85,13 +73,19 @@ namespace NCOBank
             }
             set
             {
-                _lastName = value;
+                if (value == null || value == string.Empty)
+                {
+                    _lastName = "Smith";
+                }
+                else
+                {
+                    _lastName = value;
+                }    
             }
         }
 
         public User(string username, string password, string firstName, string lastName)
         {
-            this.NumLoans = _numLoans;
             Username = username;
             Password = password;
             UserRole = "user";

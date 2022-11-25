@@ -71,10 +71,22 @@ namespace NCOBank
         public static void CreateForeignCurrencyAcc(User user)
         {
             string Currency;
-
-            TextColor.YellowMessageColor("USD, EUR, DKK");
-            TextColor.YellowMessageColor("What currency would you like to create your account in");
-            Currency = Console.ReadLine().ToUpper();
+            bool validCurrency = false;
+            do
+            {
+                TextColor.YellowMessageColor("USD, EUR, DKK");
+                TextColor.YellowMessageColor("What currency would you like to create your account in");
+                Currency = Console.ReadLine().ToUpper();
+                if (Currency == "USD" || Currency == "EUR" || Currency == "DKK")
+                {
+                    validCurrency = true;
+                }
+                else
+                {
+                    TextColor.MessageColor("Please enter USD, EUR or DKK", false);
+                    TextColor.PressEnter();
+                }
+            } while (!validCurrency);
             AccountManager.accountList.Add(new CurrencyAccount(Currency), user); // stores the account in the dictionary
             foreach (var item in AccountManager.accountList)
             {
@@ -83,8 +95,9 @@ namespace NCOBank
                     accNum = item.Key.accountNum;
                 }
             }
+
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
-            TextColor.MessageColor($"Personal account {accNum} successfully created.");
+            TextColor.MessageColor($"Currency account {accNum} successfully created.");
             TextColor.PressEnter();
         }
         public static string RndAccNum()
