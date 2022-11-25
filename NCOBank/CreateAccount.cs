@@ -70,11 +70,43 @@ namespace NCOBank
         }
         public static void CreateForeignCurrencyAcc(User user)
         {
+            try
+            {
+                if (!AccountManager.ExchangeRate.ContainsKey("USD"))
+                {
+                    AccountManager.ExchangeRate.Add("USD", 0.096f);
+                }
+                if (!AccountManager.ExchangeRate.ContainsKey("EUR"))
+                {
+                    AccountManager.ExchangeRate.Add("EUR", 0.093f);
+                }
+                if (!AccountManager.ExchangeRate.ContainsKey("DKK"))
+                {
+                    AccountManager.ExchangeRate.Add("DKK", 0.069f);
+                }
+            }
+            catch (Exception)
+            {
+                AccountManager.ExchangeRate.Remove("currency");
+                throw;
+            }
             string Currency;
-
-            TextColor.YellowMessageColor("USD, EUR, DKK");
-            TextColor.YellowMessageColor("What currency would you like to create your account in");
-            Currency = Console.ReadLine().ToUpper();
+            bool validCurrency = false;
+            do
+            {
+                TextColor.YellowMessageColor("USD, EUR, DKK");
+                TextColor.YellowMessageColor("What currency would you like to create your account in");
+                Currency = Console.ReadLine().ToUpper();
+                if (Currency == "USD" || Currency == "EUR" || Currency == "DKK")
+                {
+                    validCurrency = true;
+                }
+                else
+                {
+                    TextColor.MessageColor("Please enter USD, EUR or DKK", false);
+                    TextColor.PressEnter();
+                }
+            } while (!validCurrency);
             AccountManager.accountList.Add(new CurrencyAccount(Currency), user); // stores the account in the dictionary
             foreach (var item in AccountManager.accountList)
             {
@@ -83,8 +115,9 @@ namespace NCOBank
                     accNum = item.Key.accountNum;
                 }
             }
+
             AccountManager.accountHistory.Add(new KeyValuePair<string, string>(accNum, $"Account created - {DateTime.Now.ToString("g")}")); // logs the creation of the account
-            TextColor.MessageColor($"Personal account {accNum} successfully created.");
+            TextColor.MessageColor($"Currency account {accNum} successfully created.");
             TextColor.PressEnter();
         }
         public static string RndAccNum()

@@ -10,9 +10,12 @@ namespace NCOBank
 {
     public class Loan : Account
     {
+        private static float balanceSEK;
+        private static float exhangerate;
         private static float maxLoan;
         private static float loanInterest = 0.03f;
         private static float maxLoanSum = 5;
+        public float Exhangerate { get; set; }
         public float LoanInterest 
         {
             get
@@ -102,19 +105,18 @@ namespace NCOBank
         private static float CheckMaxLoan(User user)
         {
             float newLoan = 0;
-            float tot = 0;
+            float totalBalance = 0;
             foreach (var item in AccountManager.accountList) // checks total balance on all accounts
             {
-                if (item.Value.Equals(user) && item.Key.accType == "personal")
+                if (item.Value.Equals(user) && item.Key.accType != "currency" && item.Key.accType != "loan")
                 {
-                    tot += item.Key.balance;
+                    totalBalance += item.Key.balance;
                 }
-                if (item.Value.Equals(user) && item.Key.accType == "savings")
+                else if (item.Value.Equals(user) && item.Key.accType == "currency")
                 {
-                    tot += item.Key.balance;
+                    totalBalance += RevertCurrency(item.Key.currency, item.Key.balance);
                 }
             }
-
             foreach (var item in AccountManager.accountList) // check total debt from previous loans
             {
                 if (item.Value.Equals(user) && item.Key.accType == "loan")
@@ -122,7 +124,7 @@ namespace NCOBank
                     newLoan += item.Key.balance;
                 }
             }
-            return maxLoan = tot * maxLoanSum - newLoan; 
+            return maxLoan = totalBalance * maxLoanSum - newLoan; 
              
         }
         public static string CheckInterest(float loan)
@@ -133,6 +135,12 @@ namespace NCOBank
         public static string DisplayInterest()
         {
             return String.Format("Current interest rate on our loan is {0:P2}", loanInterest);
+        }
+        public static float RevertCurrency(string currency, float balanceCurrency)
+        {
+            exhangerate = AccountManager.ExchangeRate[currency];
+            balanceSEK = balanceCurrency / exhangerate;
+            return balanceSEK;
         }
     }
 }

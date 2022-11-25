@@ -94,15 +94,15 @@ namespace NCOBank
                 {
                     if (item.Value.Equals(user) && item.Key.accType == "personal")
                     {
-                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance}");
+                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} SEK");
                     }
                     else if (item.Value.Equals(user) && item.Key.accType == "savings")
                     {
-                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - {SavingsAccount.CheckInterest(item.Key.balance)}");
+                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} SEK - {SavingsAccount.CheckInterest(item.Key.balance)}");
                     }
                     else if (item.Value.Equals(user) && item.Key.accType == "currency")
                     {
-                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} - Currency: {item.Key.currency}");
+                        TextColor.YellowMessageColor($"Account nr: {item.Key.accountNum} - Balance: {item.Key.balance} {item.Key.currency}");
                     }
                 }
                 TextColor.YellowMessageColor("Select account:");
@@ -118,7 +118,7 @@ namespace NCOBank
                 }
                 if (!accountExist)
                 {
-                    TextColor.MessageColor("the account you typed in do not exist, please try again: ", false);
+                    TextColor.MessageColor("The account you typed in do not exist, please try again: ", false);
                     TextColor.PressEnter();
                     SetBalance();
                 }
@@ -166,26 +166,11 @@ namespace NCOBank
             string currency = null;
             bool currencyExist = false;
 
-
-            if (AccountManager.ExchangeRate.ContainsKey("USD"))
-            {
-                AccountManager.ExchangeRate.Remove("USD");
-            }
-            else if (AccountManager.ExchangeRate.ContainsKey("EUR"))
-            {
-                AccountManager.ExchangeRate.Remove("EUR");
-            }
-            else if (AccountManager.ExchangeRate.ContainsKey("DKK"))
-            {
-                AccountManager.ExchangeRate.Remove("DKK");
-            }
-
-
             TextColor.YellowMessageColor("USD, EUR, DKK");
             TextColor.YellowMessageColor("Type the name of the currency you want to uppdate: ");
 
-            currency = Console.ReadLine();
-            if (currency == "USD" || currency == "usd" || currency == "EUR" || currency == "eur" || currency == "DKK" || currency == "dkk")
+            currency = Console.ReadLine().ToUpper();
+            if (currency == "USD" || currency == "EUR" || currency == "DKK")
             {
                 TextColor.MessageColor("Currency chosen: ");
                 currencyExist = true;
