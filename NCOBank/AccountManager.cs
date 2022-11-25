@@ -8,12 +8,9 @@ namespace NCOBank
 {
     public class AccountManager
     {
-
-        //public static Dictionary<Loan, User> loanList = new Dictionary<Loan, User>();
         public static List<KeyValuePair<string, string>> accountHistory = new List<KeyValuePair<string, string>>();
         public static Dictionary<Account, User> accountList = new Dictionary<Account, User>();
         public static Dictionary<string, float> ExchangeRate = new Dictionary<string, float>();
-
 
         public static void Run(User user)
         {

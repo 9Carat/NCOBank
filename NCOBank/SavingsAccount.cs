@@ -35,7 +35,7 @@ namespace NCOBank
             this.accType = "savings";
 
         }
-        public static string CheckInterest(float balance) // lägga till när vi flyttar pengar till sparkonto!!
+        public static string CheckInterest(float balance) 
         {
             float interest = balance * savingsInterest;
             return $"The yearly savings interest is: {interest}kr";
