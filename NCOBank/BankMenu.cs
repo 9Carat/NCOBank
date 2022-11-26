@@ -167,7 +167,7 @@ namespace NCOBank
 
             } while (ok == false);
 
-            TextColor.YellowMessageColor("Please enter your new password.\nIt has to have a minimum of 8 in lenght and requiers at least one digit, one upper case and one lower case letter."); // skriva om text
+            TextColor.YellowMessageColor("Please enter your new password.\nIt has to have a minimum of 8 in length and requires at least one digit, one upper case and one lower case letter.");
             string newPassword;
             do
             {

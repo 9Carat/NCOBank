@@ -42,7 +42,6 @@ namespace NCOBank
         {
             bool acc1Exists = false;
             bool acc2Exists = false;
-            bool a = true;
             string accSend = null;
             string accRecieve = null;
             float amount;
