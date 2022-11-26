@@ -14,7 +14,7 @@ namespace NCOBank
             do
             {
                 TextColor.YellowMessageColor("Please select one of the following options:");
-                TextColor.YellowMessageColor("1. Display your accounts"); // Same method for both options?
+                TextColor.YellowMessageColor("1. Display your accounts");
                 TextColor.YellowMessageColor("2. Show account history");
                 TextColor.YellowMessageColor("0. Previous menu ");
                 selection = Console.ReadLine();
