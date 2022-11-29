@@ -99,7 +99,9 @@ namespace NCOBank
             }
             else
             {
-                Console.WriteLine("Make sure you write Yes or No. Please try again.");
+                TextColor.MessageColor("Make sure you write Yes or No. Please try again.", false);
+                TextColor.PressEnter();
+                Run(user);
             }
         }
         private static float CheckMaxLoan(User user)
