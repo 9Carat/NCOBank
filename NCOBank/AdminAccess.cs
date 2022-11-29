@@ -197,7 +197,7 @@ namespace NCOBank
 
             foreach (var item in AccountManager.accountList)
             {
-                if (item.Key.accType == "currency" && item.Key.currency == currency)
+                if (item.Key.accType == "currency")
                 {
                     item.Key.balance = item.Key.balance / AccountManager.ExchangeRate[currency];
                 }
@@ -208,7 +208,7 @@ namespace NCOBank
 
             foreach (var item in AccountManager.accountList)
             {
-                if (item.Key.accType == "currency" && item.Key.currency == currency)
+                if (item.Key.accType == "currency")
                 {
                     item.Key.balance = item.Key.balance * AccountManager.ExchangeRate[currency];
                 }
