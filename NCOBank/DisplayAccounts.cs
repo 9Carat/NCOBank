@@ -119,9 +119,11 @@ namespace NCOBank
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         DisplayHistory(user);
                         break;
                     case "2":
+                        Console.Clear();
                         Run(user);
                         TextColor.PressEnter();
                         break;
