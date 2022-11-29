@@ -194,8 +194,26 @@ namespace NCOBank
                 UppdateExchangeRate();
                 throw;
             }
+
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Key.accType == "currency")
+                {
+                    item.Key.balance = item.Key.balance / AccountManager.ExchangeRate[currency];
+                }
+            }
+
             AccountManager.ExchangeRate.Remove(currency);
             AccountManager.ExchangeRate.Add(currency, exchangeRate);
+
+            foreach (var item in AccountManager.accountList)
+            {
+                if (item.Key.accType == "currency")
+                {
+                    item.Key.balance = item.Key.balance * AccountManager.ExchangeRate[currency];
+                }
+            }
+
             TextColor.MessageColor("Currency set");
             TextColor.PressEnter();
             Run();
