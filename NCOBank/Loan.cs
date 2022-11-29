@@ -124,7 +124,7 @@ namespace NCOBank
                     newLoan += item.Key.balance;
                 }
             }
-            return maxLoanSum = totalBalance * maxLoanSum - newLoan; 
+            return maxLoanSum = totalBalance * totalLoan - newLoan; 
              
         }
         public static string CheckInterest(float loan)
